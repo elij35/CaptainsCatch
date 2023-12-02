@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">Comp2000 Restaurant app</string>
+    <string name="image_description">image</string>
+    <string name="app_name">The Captain\'s Catch</string>
+    <string name="book_table">Book a table</string>
+    <string name="available_tables">Available Tables</string>
+    <string name="manage_booking">Manage my bookings</string>
+    <string name="reviews">Reviews</string>
+    <string name="my_account">My account</string>
 </resources>
