@@ -32,7 +32,7 @@
         app:layout_constraintTop_toBottomOf="@+id/anchor_logo" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/bookings"
+        android:id="@+id/load_new_booking"
         android:layout_width="275dp"
         android:layout_height="49dp"
         android:layout_marginTop="30dp"
@@ -45,52 +45,52 @@
         app:layout_constraintTop_toBottomOf="@+id/app_name" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/available_tables"
+        android:id="@+id/load_available_tables"
         android:layout_width="275dp"
         android:layout_height="49dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/standard_button"
         android:text="@string/available_tables"
         android:textColor="@color/button_text"
-        app:layout_constraintEnd_toEndOf="@+id/bookings"
-        app:layout_constraintStart_toStartOf="@+id/bookings"
-        app:layout_constraintTop_toBottomOf="@+id/bookings" />
+        app:layout_constraintEnd_toEndOf="@+id/load_new_booking"
+        app:layout_constraintStart_toStartOf="@+id/load_new_booking"
+        app:layout_constraintTop_toBottomOf="@+id/load_new_booking" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/manage_bookings"
+        android:id="@+id/load_manage_bookings"
         android:layout_width="275dp"
         android:layout_height="49dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/standard_button"
         android:text="@string/manage_booking"
         android:textColor="@color/button_text"
-        app:layout_constraintEnd_toEndOf="@+id/available_tables"
-        app:layout_constraintStart_toStartOf="@+id/available_tables"
-        app:layout_constraintTop_toBottomOf="@+id/available_tables" />
+        app:layout_constraintEnd_toEndOf="@+id/load_available_tables"
+        app:layout_constraintStart_toStartOf="@+id/load_available_tables"
+        app:layout_constraintTop_toBottomOf="@+id/load_available_tables" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/reviews"
+        android:id="@+id/load_reviews"
         android:layout_width="275dp"
         android:layout_height="49dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/standard_button"
         android:text="@string/reviews"
         android:textColor="@color/button_text"
-        app:layout_constraintEnd_toEndOf="@+id/manage_bookings"
-        app:layout_constraintStart_toStartOf="@+id/manage_bookings"
-        app:layout_constraintTop_toBottomOf="@+id/manage_bookings" />
+        app:layout_constraintEnd_toEndOf="@+id/load_manage_bookings"
+        app:layout_constraintStart_toStartOf="@+id/load_manage_bookings"
+        app:layout_constraintTop_toBottomOf="@+id/load_manage_bookings" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/my_account"
+        android:id="@+id/load_my_account"
         android:layout_width="275dp"
         android:layout_height="49dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/standard_button"
         android:text="@string/my_account"
         android:textColor="@color/button_text"
-        app:layout_constraintEnd_toEndOf="@+id/reviews"
-        app:layout_constraintStart_toStartOf="@+id/reviews"
-        app:layout_constraintTop_toBottomOf="@+id/reviews" />
+        app:layout_constraintEnd_toEndOf="@+id/load_reviews"
+        app:layout_constraintStart_toStartOf="@+id/load_reviews"
+        app:layout_constraintTop_toBottomOf="@+id/load_reviews" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
