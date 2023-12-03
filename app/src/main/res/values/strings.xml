@@ -1,9 +1,13 @@
 <resources>
     <string name="image_description">image</string>
-    <string name="app_name">The Captain\'s Catch</string>
-    <string name="book_table">Book a table</string>
-    <string name="available_tables">Available Tables</string>
-    <string name="manage_booking">Manage my bookings</string>
-    <string name="reviews">Reviews</string>
-    <string name="my_account">My account</string>
+    <string name="app_name"><u>The Captain\'s Catch</u></string>
+    <string name="book_table"><u>Book a table</u></string>
+    <string name="available_tables"><u>Available Tables</u></string>
+    <string name="manage_booking"><u>Manage my bookings</u></string>
+    <string name="reviews"><u>Reviews</u></string>
+    <string name="my_account"><u>My account</u></string>
+    <string name="notifications">Notifications</string>
+    <string name="book_now">Book now</string>
+    <string name="back_bookings">Back to bookings</string>
+
 </resources>
