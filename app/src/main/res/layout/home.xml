@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue"
-    tools:context=".MainActivity">
+    tools:context=".Home">
 
     <ImageView
         android:id="@+id/anchor_logo"
@@ -33,11 +32,11 @@
         app:layout_constraintTop_toBottomOf="@+id/anchor_logo" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/book_table_button"
+        android:id="@+id/bookings"
         android:layout_width="275dp"
         android:layout_height="49dp"
         android:layout_marginTop="30dp"
-        android:background="@drawable/custom_button"
+        android:background="@drawable/standard_button"
         android:text="@string/book_table"
         android:textColor="@color/button_text"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,19 +49,19 @@
         android:layout_width="275dp"
         android:layout_height="49dp"
         android:layout_marginTop="12dp"
-        android:background="@drawable/custom_button"
+        android:background="@drawable/standard_button"
         android:text="@string/available_tables"
         android:textColor="@color/button_text"
-        app:layout_constraintEnd_toEndOf="@+id/book_table_button"
-        app:layout_constraintStart_toStartOf="@+id/book_table_button"
-        app:layout_constraintTop_toBottomOf="@+id/book_table_button" />
+        app:layout_constraintEnd_toEndOf="@+id/bookings"
+        app:layout_constraintStart_toStartOf="@+id/bookings"
+        app:layout_constraintTop_toBottomOf="@+id/bookings" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/manage_bookings"
         android:layout_width="275dp"
         android:layout_height="49dp"
         android:layout_marginTop="12dp"
-        android:background="@drawable/custom_button"
+        android:background="@drawable/standard_button"
         android:text="@string/manage_booking"
         android:textColor="@color/button_text"
         app:layout_constraintEnd_toEndOf="@+id/available_tables"
@@ -74,7 +73,7 @@
         android:layout_width="275dp"
         android:layout_height="49dp"
         android:layout_marginTop="12dp"
-        android:background="@drawable/custom_button"
+        android:background="@drawable/standard_button"
         android:text="@string/reviews"
         android:textColor="@color/button_text"
         app:layout_constraintEnd_toEndOf="@+id/manage_bookings"
@@ -86,7 +85,7 @@
         android:layout_width="275dp"
         android:layout_height="49dp"
         android:layout_marginTop="12dp"
-        android:background="@drawable/custom_button"
+        android:background="@drawable/standard_button"
         android:text="@string/my_account"
         android:textColor="@color/button_text"
         app:layout_constraintEnd_toEndOf="@+id/reviews"
@@ -106,7 +105,7 @@
         tools:ignore="VisualLintBounds" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/home_icon"
         android:layout_width="80dp"
         android:layout_height="70dp"
         android:layout_marginStart="20dp"
@@ -117,35 +116,35 @@
         app:srcCompat="@drawable/home" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/calendar_icon"
         android:layout_width="80dp"
         android:layout_height="70dp"
         android:layout_marginStart="15dp"
         android:contentDescription="@string/image_description"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/home_icon"
         app:layout_constraintTop_toTopOf="@+id/toolbar"
         app:srcCompat="@drawable/calendar" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/reviews_icon"
         android:layout_width="80dp"
         android:layout_height="70dp"
         android:layout_marginStart="15dp"
         android:contentDescription="@string/image_description"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintStart_toEndOf="@+id/calendar_icon"
         app:layout_constraintTop_toTopOf="@+id/toolbar"
         app:srcCompat="@drawable/reviews" />
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/account_icon"
         android:layout_width="80dp"
         android:layout_height="70dp"
         android:layout_marginStart="15dp"
         android:contentDescription="@string/image_description"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-        app:layout_constraintStart_toEndOf="@+id/imageView4"
+        app:layout_constraintStart_toEndOf="@+id/reviews_icon"
         app:layout_constraintTop_toTopOf="@+id/toolbar"
         app:srcCompat="@drawable/profile" />
 
