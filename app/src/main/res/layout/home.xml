@@ -37,8 +37,7 @@
         android:layout_height="49dp"
         android:layout_marginTop="30dp"
         android:background="@drawable/standard_button"
-        android:text="@string/book_table"
-        android:textColor="@color/button_text"
+        android:text="@string/book_table_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,8 +49,7 @@
         android:layout_height="49dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/standard_button"
-        android:text="@string/available_tables"
-        android:textColor="@color/button_text"
+        android:text="@string/available_tables_btn"
         app:layout_constraintEnd_toEndOf="@+id/load_new_booking"
         app:layout_constraintStart_toStartOf="@+id/load_new_booking"
         app:layout_constraintTop_toBottomOf="@+id/load_new_booking" />
@@ -59,11 +57,10 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/load_manage_bookings"
         android:layout_width="275dp"
-        android:layout_height="49dp"
+        android:layout_height="50dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/standard_button"
-        android:text="@string/manage_booking"
-        android:textColor="@color/button_text"
+        android:text="@string/manage_booking_btn"
         app:layout_constraintEnd_toEndOf="@+id/load_available_tables"
         app:layout_constraintStart_toStartOf="@+id/load_available_tables"
         app:layout_constraintTop_toBottomOf="@+id/load_available_tables" />
@@ -74,8 +71,7 @@
         android:layout_height="49dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/standard_button"
-        android:text="@string/reviews"
-        android:textColor="@color/button_text"
+        android:text="@string/reviews_btn"
         app:layout_constraintEnd_toEndOf="@+id/load_manage_bookings"
         app:layout_constraintStart_toStartOf="@+id/load_manage_bookings"
         app:layout_constraintTop_toBottomOf="@+id/load_manage_bookings" />
@@ -86,8 +82,7 @@
         android:layout_height="49dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/standard_button"
-        android:text="@string/settings"
-        android:textColor="@color/button_text"
+        android:text="@string/settings_btn"
         app:layout_constraintEnd_toEndOf="@+id/load_reviews"
         app:layout_constraintStart_toStartOf="@+id/load_reviews"
         app:layout_constraintTop_toBottomOf="@+id/load_reviews" />

@@ -1,4 +1,5 @@
 <resources>
+    //Titles of pages
     <string name="image_description">image</string>
     <string name="app_name"><u>The Captain\'s Catch</u></string>
     <string name="book_table"><u>Book a table</u></string>
@@ -6,9 +7,35 @@
     <string name="manage_booking"><u>Manage my bookings</u></string>
     <string name="reviews"><u>Reviews</u></string>
     <string name="settings"><u>Settings</u></string>
-    <string name="notifications">Notifications</string>
-    <string name="book_now">Book now</string>
-    <string name="back_bookings">Back to bookings</string>
+    <string name="login"><u>Login</u></string>
+    <string name="register"><u>Register</u></string>
     <string name="amend_booking"><u>Amend booking</u></string>
+
+
+    //Button names
+    <string name="book_now">Book now</string>
     <string name="sign_out">Sign out</string>
+    <string name="back_bookings">Back to bookings</string>
+    <string name="amend_booking_btn">Amend booking</string>
+    <string name="manage_booking_btn">Manage bookings</string>
+    <string name="login_btn">Login</string>
+    <string name="available_tables_btn">Available tables</string>
+    <string name="book_table_btn">Book a table</string>
+    <string name="reviews_btn">Reviews</string>
+    <string name="settings_btn">Settings</string>
+
+
+
+
+    //Text
+    <string name="notifications">Notifications</string>
+
+    //Login and register pages:
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="repeat_pass">Confirm password</string>
+    <string name="forgot_pass">Forgot password?</string>
+    <string name="no_account">No account? Sign up</string>
+
+
 </resources>
