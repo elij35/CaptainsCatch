@@ -73,7 +73,7 @@ public class Home extends AppCompatActivity {
         manage_bookings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Home.this, MyAccount.class);
+                Intent intent = new Intent(Home.this, Settings.class);
                 startActivity(intent);
             }
         });
