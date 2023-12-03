@@ -7,24 +7,24 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class ManageBookings extends AppCompatActivity {
+public class MyAccount extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.manage_bookings);
-
-        loadBackToBookings();
+        setContentView(R.layout.my_account);
+        //home();
     }
 
-    private void loadBackToBookings() {
-        Button bookings = findViewById(R.id.back_to_bookings);
+    /*
+    private void home() {
+        Button bookings = findViewById(R.id.book_now12);
         bookings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ManageBookings.this, NewBooking.class);
+                Intent intent = new Intent(ManageBookings.this, MainActivity.class);
                 startActivity(intent);
             }
         });
-    }
+    }*/
 }
