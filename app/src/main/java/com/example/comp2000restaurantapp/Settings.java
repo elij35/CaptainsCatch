@@ -7,24 +7,24 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class MyAccount extends AppCompatActivity {
+public class Settings extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.my_account);
-        //home();
+        setContentView(R.layout.settings);
+
+        loadLoginPage();
     }
 
-    /*
-    private void home() {
-        Button bookings = findViewById(R.id.book_now12);
+    private void loadLoginPage() {
+        Button bookings = findViewById(R.id.sign_out_btn);
         bookings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ManageBookings.this, MainActivity.class);
+                Intent intent = new Intent(Settings.this, Login.class);
                 startActivity(intent);
             }
         });
-    }*/
+    }
 }

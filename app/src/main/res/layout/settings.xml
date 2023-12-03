@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
-        android:text="@string/my_account"
+        android:text="@string/settings"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="18sp"
@@ -47,14 +47,26 @@
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/notification_switch"
-        android:layout_width="128dp"
-        android:layout_height="48dp"
+        android:layout_width="165dp"
+        android:layout_height="43dp"
         android:layout_marginTop="20dp"
         android:minHeight="48dp"
         android:text="@string/notifications"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/booking" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/sign_out_btn"
+        android:layout_width="275dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/standard_button"
+        android:text="@string/sign_out"
+        android:textColor="@color/button_text"
+        app:layout_constraintBottom_toTopOf="@+id/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
