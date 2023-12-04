@@ -88,29 +88,28 @@
         android:layout_height="55dp"
         android:layout_below="@id/password"
         android:layout_centerHorizontal="true"
-        android:layout_margin="20dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="129dp"
         android:backgroundTint="@color/green"
         android:text="@string/login_btn"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password"
-        app:layout_constraintVertical_bias="0.329" />
+        app:layout_constraintTop_toBottomOf="@+id/password" />
 
     <TextView
         android:id="@+id/forgot_pass"
-        android:layout_width="151dp"
-        android:layout_height="22dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@id/login_btn"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="35dp"
+        android:layout_marginStart="210dp"
+        android:layout_marginTop="12dp"
         android:text="@string/forgot_pass"
         android:textAlignment="center"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password" />
 
     <TextView

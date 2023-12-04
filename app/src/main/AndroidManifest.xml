@@ -20,28 +20,28 @@
             android:exported="true" />
         <activity
             android:name=".EditBooking"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".Error"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".Success"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".Reviews"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".AvailableTables"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".ManageBookings"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".Settings"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".NewBooking"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".Home"
             android:exported="true">
