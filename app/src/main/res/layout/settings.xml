@@ -70,56 +70,70 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_width="413dp"
+        android:layout_width="match_parent"
         android:layout_height="78dp"
         android:background="@color/dark_blue"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/home_icon"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="VisualLintBounds" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/home_icon"
         android:layout_width="80dp"
         android:layout_height="70dp"
-        android:layout_marginStart="20dp"
+        android:background="@null"
         android:contentDescription="@string/image_description"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-        app:layout_constraintStart_toStartOf="@+id/toolbar"
+        app:layout_constraintEnd_toStartOf="@+id/calendar_icon"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbar"
         app:srcCompat="@drawable/home" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/calendar_icon"
         android:layout_width="80dp"
         android:layout_height="70dp"
-        android:layout_marginStart="15dp"
+        android:background="@null"
         android:contentDescription="@string/image_description"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+        app:layout_constraintEnd_toStartOf="@+id/reviews_icon"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/home_icon"
         app:layout_constraintTop_toTopOf="@+id/toolbar"
         app:srcCompat="@drawable/calendar" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/reviews_icon"
         android:layout_width="80dp"
         android:layout_height="70dp"
-        android:layout_marginStart="15dp"
+        android:background="@null"
         android:contentDescription="@string/image_description"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+        app:layout_constraintEnd_toStartOf="@+id/account_icon"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/calendar_icon"
         app:layout_constraintTop_toTopOf="@+id/toolbar"
         app:srcCompat="@drawable/reviews" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/account_icon"
         android:layout_width="80dp"
         android:layout_height="70dp"
-        android:layout_marginStart="15dp"
+        android:background="@null"
         android:contentDescription="@string/image_description"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/reviews_icon"
         app:layout_constraintTop_toTopOf="@+id/toolbar"
         app:srcCompat="@drawable/profile" />
