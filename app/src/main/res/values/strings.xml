@@ -5,7 +5,7 @@
     <string name="book_table"><u>Book a table</u></string>
     <string name="available_tables"><u>Available tables</u></string>
     <string name="manage_booking"><u>Manage my bookings</u></string>
-    <string name="reviews"><u>Reviews</u></string>
+    <string name="reviews"><u>Leave a review!</u></string>
     <string name="settings"><u>Settings</u></string>
     <string name="login"><u>Login</u></string>
     <string name="register"><u>Register</u></string>
@@ -27,20 +27,31 @@
     <string name="notifications">Notifications</string>
 
     //Login and register pages:
-    <string name="email">Email</string>
-    <string name="password">Password</string>
-    <string name="repeat_pass">Confirm password</string>
-    <string name="forgot_pass">Forgot password?</string>
-    <string name="no_account">No account? Sign up</string>
+    <string name="name">First and last name</string>
+    <string name="phone_number">Phone number</string>
+
+    //Reviews
+    <string name="review_rating">Rating:</string>
+    <string name="type_review">Type your review here!</string>
+    <string name="post_review">Submit review</string>
 
     //For dropdown menus
+    <string-array name="date">
+        <item>Select date</item>
+        <item>2023–02–28</item>
+        <item>2023–03–28</item>
+        <item>2023–05–28</item>
+    </string-array>
+
     <string-array name="mealtime">
+        <item>Select mealtime</item>
         <item>Breakfast</item>
         <item>Lunch</item>
         <item>Dinner</item>
     </string-array>
 
     <string-array name="location">
+        <item>Select location</item>
         <item>Inside</item>
         <item>Outside</item>
         <item>Garden</item>
@@ -48,6 +59,7 @@
     </string-array>
 
     <string-array name="table_size">
+        <item>Select table size</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
