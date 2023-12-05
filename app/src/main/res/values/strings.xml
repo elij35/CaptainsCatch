@@ -23,6 +23,9 @@
     <string name="reviews_btn">Reviews</string>
     <string name="settings_btn">Settings</string>
 
+    //Successful booking page
+    <string name="success">Your booking has been successfully made</string>
+
     //Text
     <string name="notifications">Notifications</string>
 
