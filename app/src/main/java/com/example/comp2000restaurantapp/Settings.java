@@ -2,7 +2,7 @@ package com.example.comp2000restaurantapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
 
@@ -47,12 +47,9 @@ public class Settings extends AppCompatActivity {
 
     private void loadLoginPage() {
         Button bookings = findViewById(R.id.sign_out_btn);
-        bookings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Settings.this, Login.class);
-                startActivity(intent);
-            }
+        bookings.setOnClickListener(view -> {
+            Intent intent = new Intent(Settings.this, Login.class);
+            startActivity(intent);
         });
     }
 }
