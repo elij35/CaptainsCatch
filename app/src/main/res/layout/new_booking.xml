@@ -45,6 +45,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/app_name" />
 
+    <Spinner
+        android:id="@+id/static_spinner"
+        android:layout_width="250dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/drop_down_layout"
+        android:minHeight="50dp"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/booking" />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/book_now_btn"
         android:layout_width="131dp"

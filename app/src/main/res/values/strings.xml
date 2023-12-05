@@ -11,7 +11,6 @@
     <string name="register"><u>Register</u></string>
     <string name="amend_booking"><u>Amend booking</u></string>
 
-
     //Button names
     <string name="book_now">Book now</string>
     <string name="sign_out">Sign out</string>
@@ -24,7 +23,6 @@
     <string name="reviews_btn">Reviews</string>
     <string name="settings_btn">Settings</string>
 
-
     //Text
     <string name="notifications">Notifications</string>
 
@@ -35,5 +33,10 @@
     <string name="forgot_pass">Forgot password?</string>
     <string name="no_account">No account? Sign up</string>
 
-
+    //For dropdown menus
+    <string-array name="mealtime">
+        <item>Breakfast</item>
+        <item>Lunch</item>
+        <item>Dinner</item>
+    </string-array>
 </resources>
