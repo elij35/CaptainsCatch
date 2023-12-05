@@ -22,14 +22,59 @@ public class NewBooking extends AppCompatActivity {
         loadAvailableTables();
         loadBottomBar();
         mealtime();
+        location();
+        table_size();
+        date();
+    }
+
+    private void date() {
+        Spinner staticSpinner = findViewById(R.id.date_spinner);
+
+        // Create an ArrayAdapter using the string array and a default spinner
+        ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter.createFromResource(this,
+                R.array.date, android.R.layout.simple_spinner_item);
+
+        // Specify the layout to use when the list of choices appears
+        staticAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Apply the adapter to the spinner
+        staticSpinner.setAdapter(staticAdapter);
     }
 
     private void mealtime() {
-        Spinner staticSpinner = findViewById(R.id.static_spinner);
+        Spinner staticSpinner = findViewById(R.id.meal_time_spinner);
 
         // Create an ArrayAdapter using the string array and a default spinner
         ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter.createFromResource(this,
                 R.array.mealtime, android.R.layout.simple_spinner_item);
+
+        // Specify the layout to use when the list of choices appears
+        staticAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Apply the adapter to the spinner
+        staticSpinner.setAdapter(staticAdapter);
+    }
+
+    private void location() {
+        Spinner staticSpinner = findViewById(R.id.location_spinner);
+
+        // Create an ArrayAdapter using the string array and a default spinner
+        ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter.createFromResource(this,
+                R.array.location, android.R.layout.simple_spinner_item);
+
+        // Specify the layout to use when the list of choices appears
+        staticAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Apply the adapter to the spinner
+        staticSpinner.setAdapter(staticAdapter);
+    }
+
+    private void table_size() {
+        Spinner staticSpinner = findViewById(R.id.table_size_spinner);
+
+        // Create an ArrayAdapter using the string array and a default spinner
+        ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter.createFromResource(this,
+                R.array.table_size, android.R.layout.simple_spinner_item);
 
         // Specify the layout to use when the list of choices appears
         staticAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

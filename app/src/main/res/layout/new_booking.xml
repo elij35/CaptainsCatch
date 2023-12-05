@@ -46,20 +46,60 @@
         app:layout_constraintTop_toBottomOf="@+id/app_name" />
 
     <Spinner
-        android:id="@+id/static_spinner"
-        android:layout_width="250dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="12dp"
+        android:id="@+id/date_spinner"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:background="@drawable/drop_down_layout"
         android:minHeight="50dp"
+        android:overlapAnchor="false"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/booking" />
 
+    <Spinner
+        android:id="@+id/table_size_spinner"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/drop_down_layout"
+        android:minHeight="50dp"
+        android:overlapAnchor="false"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/date_spinner" />
+
+    <Spinner
+        android:id="@+id/meal_time_spinner"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/drop_down_layout"
+        android:minHeight="50dp"
+        android:overlapAnchor="false"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/table_size_spinner" />
+
+    <Spinner
+        android:id="@+id/location_spinner"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/drop_down_layout"
+        android:minHeight="50dp"
+        android:overlapAnchor="false"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/meal_time_spinner" />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/book_now_btn"
-        android:layout_width="131dp"
+        android:layout_width="130dp"
         android:layout_height="48dp"
         android:layout_marginBottom="15dp"
         android:background="@drawable/standard_button"
