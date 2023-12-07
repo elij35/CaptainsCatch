@@ -26,12 +26,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 
 public class NewBooking extends AppCompatActivity {
 
-    public String mealtime;
-    private RequestQueue mRequestQueue;
-    private StringRequest mStringRequest;
     private String url = "https://web.socem.plymouth.ac.uk/COMP2000/ReservationApi/api/Reservations";
 
     @Override
@@ -137,7 +135,8 @@ public class NewBooking extends AppCompatActivity {
         bookings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //getData();
+
+                getData();
 
                 Intent intent = new Intent(NewBooking.this, Success.class);
                 startActivity(intent);
@@ -151,11 +150,11 @@ public class NewBooking extends AppCompatActivity {
             RequestQueue requestQueue = Volley.newRequestQueue(NewBooking.this);
             String URL = "https://web.socem.plymouth.ac.uk/COMP2000/ReservationApi/api/Reservations/";
             JSONObject jsonBody = new JSONObject();
-            jsonBody.put("customerName", "Batman");
+            jsonBody.put("customerName", "Jordan");
             jsonBody.put("customerPhoneNumber", "07777775776");
             jsonBody.put("meal", "Lunch");
             jsonBody.put("seatingArea", "Outside");
-            jsonBody.put("tableSize", 2);
+            jsonBody.put("tableSize", 6);
             jsonBody.put("date", "2024-04-22");
             final String requestBody = jsonBody.toString();
 
@@ -176,23 +175,8 @@ public class NewBooking extends AppCompatActivity {
                 }
 
                 @Override
-                public byte[] getBody() throws AuthFailureError {
-                    try {
-                        return requestBody == null ? null : requestBody.getBytes("utf-8");
-                    } catch (UnsupportedEncodingException uee) {
-                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
-                        return null;
-                    }
-                }
-
-                @Override
-                protected Response<String> parseNetworkResponse(NetworkResponse response) {
-                    String responseString = "";
-                    if (response != null) {
-                        responseString = String.valueOf(response.statusCode);
-                        // can get more details such as response.headers
-                    }
-                    return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
+                public byte[] getBody() {
+                    return requestBody.getBytes(StandardCharsets.UTF_8);
                 }
             };
 
