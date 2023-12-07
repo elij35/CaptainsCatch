@@ -32,7 +32,7 @@
         app:layout_constraintTop_toBottomOf="@+id/anchor_logo" />
 
     <TextView
-        android:id="@+id/booking"
+        android:id="@+id/manage_booking"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
@@ -44,6 +44,45 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/app_name" />
+
+    <TextView
+        android:id="@+id/booking1"
+        android:layout_width="320dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/white_text_box_background"
+        android:gravity="start"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/manage_booking" />
+
+    <TextView
+        android:id="@+id/booking2"
+        android:layout_width="320dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/white_text_box_background"
+        android:gravity="start"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/booking1" />
+
+    <TextView
+        android:id="@+id/booking3"
+        android:layout_width="320dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/white_text_box_background"
+        android:gravity="start"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/booking2" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/back_to_bookings"
