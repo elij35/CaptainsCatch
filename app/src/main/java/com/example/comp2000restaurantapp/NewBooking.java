@@ -1,6 +1,13 @@
 package com.example.comp2000restaurantapp;
 
+import android.Manifest;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,27 +17,28 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
-import java.io.UnsupportedEncodingException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 public class NewBooking extends AppCompatActivity {
 
-    private String url = "https://web.socem.plymouth.ac.uk/COMP2000/ReservationApi/api/Reservations";
+    private final String url = "https://web.socem.plymouth.ac.uk/COMP2000/ReservationApi/api/Reservations";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,61 +140,94 @@ public class NewBooking extends AppCompatActivity {
 
     private void loadBookNow() {
         Button bookings = findViewById(R.id.book_now_btn);
-        bookings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                getData();
-
-                Intent intent = new Intent(NewBooking.this, Success.class);
-                startActivity(intent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(NewBooking.this,
+                    Manifest.permission.POST_NOTIFICATIONS) !=
+                    PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(NewBooking.this,
+                        new String[]{Manifest.permission.POST_NOTIFICATIONS}, 101);
             }
+        }
+
+
+        bookings.setOnClickListener(view -> {
+
+            notification();
+
+            //apiSendData();
+
+            //localstoragejson();
+
+            //Intent intent = new Intent(NewBooking.this, Success.class);
+            //startActivity(intent);
         });
 
     }
 
-    private void getData() {
-        try {
-            RequestQueue requestQueue = Volley.newRequestQueue(NewBooking.this);
-            String URL = "https://web.socem.plymouth.ac.uk/COMP2000/ReservationApi/api/Reservations/";
-            JSONObject jsonBody = new JSONObject();
-            jsonBody.put("customerName", "Jordan");
-            jsonBody.put("customerPhoneNumber", "07777775776");
-            jsonBody.put("meal", "Lunch");
-            jsonBody.put("seatingArea", "Outside");
-            jsonBody.put("tableSize", 6);
-            jsonBody.put("date", "2024-04-22");
-            final String requestBody = jsonBody.toString();
+    public void notification() {
+        String chanelID = "CHANNEL_ID_NOTIFICATION";
+        NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(getApplicationContext(), chanelID);
+        builder.setSmallIcon(R.drawable.ic_alert)
+                .setContentTitle("Notification title")
+                .setContentText("Some text here")
+                .setAutoCancel(true)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    Log.i("VOLLEY", response);
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.e("VOLLEY", error.toString());
-                }
-            }) {
-                @Override
-                public String getBodyContentType() {
-                    return "application/json; charset=utf-8";
-                }
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-                @Override
-                public byte[] getBody() {
-                    return requestBody.getBytes(StandardCharsets.UTF_8);
-                }
-            };
-
-            requestQueue.add(stringRequest);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        NotificationChannel notificationChannel =
+                notificationManager.getNotificationChannel(chanelID);
+        if (notificationChannel == null) {
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            notificationChannel = new NotificationChannel(chanelID,
+                    "some description", importance);
+            notificationChannel.setLightColor(Color.GREEN);
+            notificationChannel.enableVibration(true);
+            notificationManager.createNotificationChannel(notificationChannel);
         }
+        notificationManager.notify(0, builder.build());
     }
 
+    private void apiSendData() {
+        RequestQueue requestQueue = Volley.newRequestQueue(NewBooking.this);
+        String URL = "https://web.socem.plymouth.ac.uk/COMP2000/ReservationApi/api/Reservations/";
+        JSONObject jsonBody = new JSONObject();
+        jsonBody.put("customerName", "Jordan");
+        jsonBody.put("customerPhoneNumber", "07777775776");
+        jsonBody.put("meal", "Lunch");
+        jsonBody.put("seatingArea", "Outside");
+        jsonBody.put("tableSize", 6);
+        jsonBody.put("date", "2024-04-22");
+        final String requestBody = jsonBody.toString();
 
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.i("VOLLEY", response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("VOLLEY", error.toString());
+            }
+        }) {
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
+
+            @Override
+            public byte[] getBody() {
+                return requestBody.getBytes(StandardCharsets.UTF_8);
+            }
+        };
+
+        requestQueue.add(stringRequest);
+    }
+    
     private void loadManageBookings() {
         Button bookings = findViewById(R.id.manage_bookings);
         bookings.setOnClickListener(new View.OnClickListener() {
