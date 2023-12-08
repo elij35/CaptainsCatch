@@ -29,11 +29,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+import org.json.JSONObject;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 public class NewBooking extends AppCompatActivity {
@@ -157,7 +154,13 @@ public class NewBooking extends AppCompatActivity {
 
             //apiSendData();
 
-            //localstoragejson();
+            try {
+                writeJson();
+                readJson();
+
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
 
             //Intent intent = new Intent(NewBooking.this, Success.class);
             //startActivity(intent);
@@ -191,7 +194,7 @@ public class NewBooking extends AppCompatActivity {
         notificationManager.notify(0, builder.build());
     }
 
-    private void apiSendData() {
+    private void apiSendData() throws JSONException {
         RequestQueue requestQueue = Volley.newRequestQueue(NewBooking.this);
         String URL = "https://web.socem.plymouth.ac.uk/COMP2000/ReservationApi/api/Reservations/";
         JSONObject jsonBody = new JSONObject();
@@ -227,7 +230,29 @@ public class NewBooking extends AppCompatActivity {
 
         requestQueue.add(stringRequest);
     }
-    
+
+    private void writeJson() throws JSONException {
+        Context context = getApplicationContext();
+
+        String FILE_NAME = "accounts.json";
+
+        JSONObject jsonBody = new JSONObject();
+        jsonBody.put("customerName", "Jordan");
+        jsonBody.put("customerPhoneNumber", "07777775776");
+        jsonBody.put("meal", "Lunch");
+        jsonBody.put("seatingArea", "Outside");
+        jsonBody.put("tableSize", 6);
+        jsonBody.put("date", "2024-04-22");
+        final String requestBody = jsonBody.toString();
+
+        storage.writeJson(context, FILE_NAME, requestBody);
+    }
+
+    private void readJson() {
+        String FILE_NAME = getFilesDir() + "/" + "accounts.json";
+        storage.readJson(FILE_NAME);
+    }
+
     private void loadManageBookings() {
         Button bookings = findViewById(R.id.manage_bookings);
         bookings.setOnClickListener(new View.OnClickListener() {
