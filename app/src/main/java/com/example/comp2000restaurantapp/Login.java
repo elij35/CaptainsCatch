@@ -1,14 +1,16 @@
 package com.example.comp2000restaurantapp;
 
+import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.button.MaterialButton;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Login extends AppCompatActivity {
 
@@ -21,25 +23,32 @@ public class Login extends AppCompatActivity {
     }
 
     private void login() {
-
-        TextView username = (TextView) findViewById(R.id.username);
-        TextView password = (TextView) findViewById(R.id.password);
         MaterialButton loginbtn = (MaterialButton) findViewById(R.id.login_btn);
 
-        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
-
-        String data = preferences.getString("login", null);
-
         loginbtn.setOnClickListener(v -> {
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putString("user", data);
-            editor.putString("password", password.getText().toString());
-            editor.apply();
 
             Intent intent = new Intent(Login.this, Home.class);
             startActivity(intent);
 
+            try {
+                storeLogin();
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
         });
     }
 
+    private void storeLogin() throws JSONException {
+        TextView username = (TextView) findViewById(R.id.username);
+        TextView password = (TextView) findViewById(R.id.password);
+
+        Context context = getApplicationContext();
+        String FILE_NAME = "login.json";
+
+        JSONObject jsonBody = new JSONObject();
+        jsonBody.put("customerName", username.getText().toString());
+        jsonBody.put("customerPhoneNumber", password.getText().toString());
+        final String requestBody = jsonBody.toString();
+        Storage.writeJson(context, FILE_NAME, requestBody);
+    }
 }
