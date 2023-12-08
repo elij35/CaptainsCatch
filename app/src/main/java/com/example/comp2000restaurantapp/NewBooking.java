@@ -1,16 +1,11 @@
 package com.example.comp2000restaurantapp;
 
 import android.Manifest;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -18,24 +13,12 @@ import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.nio.charset.StandardCharsets;
-
 public class NewBooking extends AppCompatActivity {
-
-    private final String url = "https://web.socem.plymouth.ac.uk/COMP2000/ReservationApi/api/Reservations";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +50,6 @@ public class NewBooking extends AppCompatActivity {
     }
 
     private void mealtime() {
-        String[] spinnerItems = getResources().getStringArray(R.array.mealtime);
         Spinner staticSpinner = findViewById(R.id.meal_time_spinner);
 
         // Create an ArrayAdapter using the string array and a default spinner
@@ -147,88 +129,37 @@ public class NewBooking extends AppCompatActivity {
             }
         }
 
-
         bookings.setOnClickListener(view -> {
 
-            notification();
-
-            //apiSendData();
+            getNotification();
 
             try {
                 writeJson();
-                readJson();
 
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
 
-            //Intent intent = new Intent(NewBooking.this, Success.class);
-            //startActivity(intent);
+            sendAPI();
+
+            Intent intent = new Intent(NewBooking.this, Success.class);
+            startActivity(intent);
         });
-
     }
 
-    public void notification() {
-        String chanelID = "CHANNEL_ID_NOTIFICATION";
-        NotificationCompat.Builder builder =
-                new NotificationCompat.Builder(getApplicationContext(), chanelID);
-        builder.setSmallIcon(R.drawable.ic_alert)
-                .setContentTitle("Notification title")
-                .setContentText("Some text here")
-                .setAutoCancel(true)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-        NotificationChannel notificationChannel =
-                notificationManager.getNotificationChannel(chanelID);
-        if (notificationChannel == null) {
-            int importance = NotificationManager.IMPORTANCE_HIGH;
-            notificationChannel = new NotificationChannel(chanelID,
-                    "some description", importance);
-            notificationChannel.setLightColor(Color.GREEN);
-            notificationChannel.enableVibration(true);
-            notificationManager.createNotificationChannel(notificationChannel);
-        }
-        notificationManager.notify(0, builder.build());
+    private void sendAPI() {
+        Context context = getApplicationContext();
+        String accounts = getFilesDir() + "/" + "accounts.json";
+        String login = getFilesDir() + "/" + "login.json";
+        Storage.sendToApi(context, accounts, login);
     }
 
-    private void apiSendData() throws JSONException {
-        RequestQueue requestQueue = Volley.newRequestQueue(NewBooking.this);
-        String URL = "https://web.socem.plymouth.ac.uk/COMP2000/ReservationApi/api/Reservations/";
-        JSONObject jsonBody = new JSONObject();
-        jsonBody.put("customerName", "Jordan");
-        jsonBody.put("customerPhoneNumber", "07777775776");
-        jsonBody.put("meal", "Lunch");
-        jsonBody.put("seatingArea", "Outside");
-        jsonBody.put("tableSize", 6);
-        jsonBody.put("date", "2024-04-22");
-        final String requestBody = jsonBody.toString();
+    private void getNotification() {
+        Context context = getApplicationContext();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.i("VOLLEY", response);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("VOLLEY", error.toString());
-            }
-        }) {
-            @Override
-            public String getBodyContentType() {
-                return "application/json; charset=utf-8";
-            }
-
-            @Override
-            public byte[] getBody() {
-                return requestBody.getBytes(StandardCharsets.UTF_8);
-            }
-        };
-
-        requestQueue.add(stringRequest);
+        String title = "Successful booking";
+        String body = "Your booking has been confirmed";
+        Notifications.notification(context, title, body);
     }
 
     private void writeJson() throws JSONException {
@@ -237,41 +168,29 @@ public class NewBooking extends AppCompatActivity {
         String FILE_NAME = "accounts.json";
 
         JSONObject jsonBody = new JSONObject();
-        jsonBody.put("customerName", "Jordan");
-        jsonBody.put("customerPhoneNumber", "07777775776");
         jsonBody.put("meal", "Lunch");
         jsonBody.put("seatingArea", "Outside");
         jsonBody.put("tableSize", 6);
         jsonBody.put("date", "2024-04-22");
+
         final String requestBody = jsonBody.toString();
 
-        storage.writeJson(context, FILE_NAME, requestBody);
-    }
-
-    private void readJson() {
-        String FILE_NAME = getFilesDir() + "/" + "accounts.json";
-        storage.readJson(FILE_NAME);
+        Storage.writeJson(context, FILE_NAME, requestBody);
     }
 
     private void loadManageBookings() {
         Button bookings = findViewById(R.id.manage_bookings);
-        bookings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(NewBooking.this, ManageBookings.class);
-                startActivity(intent);
-            }
+        bookings.setOnClickListener(view -> {
+            Intent intent = new Intent(NewBooking.this, ManageBookings.class);
+            startActivity(intent);
         });
     }
 
     private void loadAvailableTables() {
         Button bookings = findViewById(R.id.available_tables);
-        bookings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(NewBooking.this, AvailableTables.class);
-                startActivity(intent);
-            }
+        bookings.setOnClickListener(view -> {
+            Intent intent = new Intent(NewBooking.this, AvailableTables.class);
+            startActivity(intent);
         });
     }
 }
