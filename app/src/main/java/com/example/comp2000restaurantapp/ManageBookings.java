@@ -16,6 +16,7 @@ public class ManageBookings extends AppCompatActivity {
 
         loadBackToBookings();
         loadBottomBar();
+        loadPreviousBookings();
     }
 
     private void loadBottomBar() {
@@ -48,6 +49,14 @@ public class ManageBookings extends AppCompatActivity {
         Button bookings = findViewById(R.id.back_to_bookings);
         bookings.setOnClickListener(view -> {
             Intent intent = new Intent(ManageBookings.this, NewBooking.class);
+            startActivity(intent);
+        });
+    }
+
+    private void loadPreviousBookings() {
+        Button previous_bookings = findViewById(R.id.previous_bookings);
+        previous_bookings.setOnClickListener(view -> {
+            Intent intent = new Intent(ManageBookings.this, PreviousBookings.class);
             startActivity(intent);
         });
     }
