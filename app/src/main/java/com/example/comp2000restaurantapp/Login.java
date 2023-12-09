@@ -13,6 +13,8 @@ import com.google.android.material.button.MaterialButton;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+
 public class Login extends AppCompatActivity {
 
     @Override
@@ -30,13 +32,13 @@ public class Login extends AppCompatActivity {
 
             try {
                 storeLogin();
-            } catch (JSONException e) {
+            } catch (JSONException | IOException e) {
                 throw new RuntimeException(e);
             }
         });
     }
 
-    private void storeLogin() throws JSONException {
+    private void storeLogin() throws JSONException, IOException {
         TextView username = (TextView) findViewById(R.id.username);
         TextView phoneNumber = (TextView) findViewById(R.id.phone_number);
 

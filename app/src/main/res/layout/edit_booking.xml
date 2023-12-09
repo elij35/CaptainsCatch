@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
-        android:text="@string/amend_booking"
+        android:text="@string/edit_booking"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="18sp"
