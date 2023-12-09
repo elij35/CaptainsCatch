@@ -1,12 +1,13 @@
 package com.example.comp2000restaurantapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 
 public class Settings extends AppCompatActivity {
 
@@ -17,6 +18,21 @@ public class Settings extends AppCompatActivity {
 
         loadLoginPage();
         loadBottomBar();
+
+        SwitchCompat notification_switch = findViewById(R.id.notification_switch);
+
+        notification_switch.setOnClickListener(view -> {
+
+            if (notification_switch.isChecked()) {
+                SharedPreferences.Editor editor = getSharedPreferences("switchOn", MODE_PRIVATE).edit();
+                editor.putBoolean("switchOn", true);
+                editor.apply();
+            } else {
+                SharedPreferences.Editor editor = getSharedPreferences("switchOff", MODE_PRIVATE).edit();
+                editor.putBoolean("switchOff", false);
+                editor.apply();
+            }
+        });
     }
 
     private void loadBottomBar() {
