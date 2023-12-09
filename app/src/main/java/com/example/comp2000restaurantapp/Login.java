@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -27,9 +28,6 @@ public class Login extends AppCompatActivity {
 
         loginbtn.setOnClickListener(v -> {
 
-            Intent intent = new Intent(Login.this, Home.class);
-            startActivity(intent);
-
             try {
                 storeLogin();
             } catch (JSONException e) {
@@ -40,15 +38,27 @@ public class Login extends AppCompatActivity {
 
     private void storeLogin() throws JSONException {
         TextView username = (TextView) findViewById(R.id.username);
-        TextView password = (TextView) findViewById(R.id.password);
+        TextView phoneNumber = (TextView) findViewById(R.id.phone_number);
 
         Context context = getApplicationContext();
         String FILE_NAME = "login.json";
 
-        JSONObject jsonBody = new JSONObject();
-        jsonBody.put("customerName", username.getText().toString());
-        jsonBody.put("customerPhoneNumber", password.getText().toString());
-        final String requestBody = jsonBody.toString();
-        Storage.writeJson(context, FILE_NAME, requestBody);
+        if (username.getText().toString().length() != 0) {
+            if (phoneNumber.getText().toString().length() != 0) {
+                JSONObject jsonBody = new JSONObject();
+                jsonBody.put("customerName", username.getText());
+                jsonBody.put("customerPhoneNumber", phoneNumber.getText());
+                final String requestBody = jsonBody.toString();
+
+                Storage.writeJson(context, FILE_NAME, requestBody);
+
+                Intent intent = new Intent(Login.this, Home.class);
+                startActivity(intent);
+            } else {
+                Toast.makeText(context, "Must enter a phone number", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(context, "Must enter full name", Toast.LENGTH_SHORT).show();
+        }
     }
 }
