@@ -28,8 +28,10 @@
     <string name="settings_btn">Settings</string>
     <string name="previous_bookings_btn">Previous Bookings</string>
 
-    //Successful booking page
+    //Successful booking pages
     <string name="success">Your booking has been successfully made</string>
+    <string name="amend_success">Your booking has been successfully changed. You can see the changes in the manage my bookings page</string>
+
 
     //Text
     <string name="notifications">Notifications</string>
