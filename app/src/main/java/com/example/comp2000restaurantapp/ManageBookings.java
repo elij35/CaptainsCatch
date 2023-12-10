@@ -1,11 +1,18 @@
 package com.example.comp2000restaurantapp;
 
+import static com.example.comp2000restaurantapp.Storage.readJson;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.io.IOException;
+import java.text.MessageFormat;
+import java.text.ParseException;
 
 public class ManageBookings extends AppCompatActivity {
 
@@ -19,6 +26,29 @@ public class ManageBookings extends AppCompatActivity {
         loadPreviousBookings();
         loadEditBooking();
         loadCancelBooking();
+
+        try {
+            loadBookingDetails();
+        } catch (IOException | ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void loadBookingDetails() throws IOException, ParseException {
+
+        String booking = getFilesDir() + "/" + "booking.json";
+
+        TextView date = findViewById(R.id.booking1);
+        date.setText(MessageFormat.format("Date: {0}", readJson(booking).get("date").textValue()));
+
+        TextView tableSize = findViewById(R.id.textBox1_tableSize);
+        tableSize.setText(MessageFormat.format("Table Size: {0}", readJson(booking).get("tableSize").textValue()));
+
+        TextView location = findViewById(R.id.textBox1_location);
+        location.setText(MessageFormat.format("Location: {0}", readJson(booking).get("seatingArea").textValue()));
+
+        TextView mealTime = findViewById(R.id.textBox1_mealTime);
+        mealTime.setText(MessageFormat.format("Meal: {0}", readJson(booking).get("meal").textValue()));
     }
 
     private void loadBottomBar() {
