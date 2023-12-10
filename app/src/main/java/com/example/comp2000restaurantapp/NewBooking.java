@@ -1,6 +1,10 @@
 package com.example.comp2000restaurantapp;
 
+import static com.example.comp2000restaurantapp.Date.makeDateString;
+import static com.example.comp2000restaurantapp.Date.makeJsonDateString;
+
 import android.Manifest;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -21,13 +25,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Calendar;
 
 public class NewBooking extends AppCompatActivity {
-
     String dateSelected;
     String mealtimeSelected;
     String locationSelected;
     String tableSizeSelected;
+
+    private DatePickerDialog datePickerDialog;
+    private Button dateButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,34 +48,28 @@ public class NewBooking extends AppCompatActivity {
         mealtime();
         location();
         table_size();
-        date();
+        initDatePicker();
+        dateButton = findViewById(R.id.datePickerButton);
     }
 
-    private void date() {
-        Spinner staticSpinner = findViewById(R.id.date_spinner);
+    private void initDatePicker() {
+        DatePickerDialog.OnDateSetListener dateSetListener = (datePicker, year, month, day) -> {
+            month = month + 1;
+            String date = makeDateString(day, month, year);
+            dateButton.setText(date);
+            dateSelected = makeJsonDateString(year, month, day);
+        };
 
-        // Create an ArrayAdapter using the string array and a default spinner
-        ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter.createFromResource(this,
-                R.array.date, android.R.layout.simple_spinner_item);
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
 
-        // Specify the layout to use when the list of choices appears
-        staticAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        datePickerDialog = new DatePickerDialog(this, dateSetListener, year, month, day);
+    }
 
-        // Apply the adapter to the spinner
-        staticSpinner.setAdapter(staticAdapter);
-
-        staticSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                // Get the selected item
-                dateSelected = (String) parentView.getItemAtPosition(position);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                Toast.makeText(getApplicationContext(), "A date must be selected", Toast.LENGTH_SHORT).show();
-            }
-        });
+    public void openDatePicker(View view) {
+        datePickerDialog.show();
     }
 
     private void table_size() {
@@ -155,6 +156,7 @@ public class NewBooking extends AppCompatActivity {
     private void loadBookNow() {
         Button bookings = findViewById(R.id.book_now_btn);
 
+        //Checks if notifications are allowed
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(NewBooking.this,
                     Manifest.permission.POST_NOTIFICATIONS) !=
@@ -174,7 +176,7 @@ public class NewBooking extends AppCompatActivity {
             } catch (JSONException | IOException e) {
                 throw new RuntimeException(e);
             }
-            Intent intent = new Intent(NewBooking.this, Success.class);
+            Intent intent = new Intent(NewBooking.this, BookingSuccess.class);
             startActivity(intent);
         });
     }
@@ -186,7 +188,6 @@ public class NewBooking extends AppCompatActivity {
     }
 
     private void sendNotification() throws IOException {
-        String switchFile = getFilesDir() + "/" + "switchState.json";
         String title = "Successful booking";
         String body = "Your booking has been confirmed";
         Notifications.notification(getApplicationContext(), title, body);
