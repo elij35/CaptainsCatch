@@ -31,7 +31,7 @@
     //Successful booking pages
     <string name="success">Your booking has been successfully made</string>
     <string name="amend_success">Your booking has been successfully changed. You can see the changes in the manage my bookings page</string>
-
+    <string name="unsuccessful">Your booking has been unsuccessful please try again.</string>
 
     //Text
     <string name="notifications">Notifications</string>
