@@ -1,15 +1,17 @@
 package com.example.comp2000restaurantapp;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -18,7 +20,14 @@ import androidx.core.content.ContextCompat;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+
 public class NewBooking extends AppCompatActivity {
+
+    String dateSelected;
+    String mealtimeSelected;
+    String locationSelected;
+    String tableSizeSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,34 +56,19 @@ public class NewBooking extends AppCompatActivity {
 
         // Apply the adapter to the spinner
         staticSpinner.setAdapter(staticAdapter);
-    }
 
-    private void mealtime() {
-        Spinner staticSpinner = findViewById(R.id.meal_time_spinner);
+        staticSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // Get the selected item
+                dateSelected = (String) parentView.getItemAtPosition(position);
+            }
 
-        // Create an ArrayAdapter using the string array and a default spinner
-        ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter.createFromResource(this,
-                R.array.mealtime, android.R.layout.simple_spinner_item);
-
-        // Specify the layout to use when the list of choices appears
-        staticAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // Apply the adapter to the spinner
-        staticSpinner.setAdapter(staticAdapter);
-    }
-
-    private void location() {
-        Spinner staticSpinner = findViewById(R.id.location_spinner);
-
-        // Create an ArrayAdapter using the string array and a default spinner
-        ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter.createFromResource(this,
-                R.array.location, android.R.layout.simple_spinner_item);
-
-        // Specify the layout to use when the list of choices appears
-        staticAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // Apply the adapter to the spinner
-        staticSpinner.setAdapter(staticAdapter);
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                Toast.makeText(getApplicationContext(), "A date must be selected", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void table_size() {
@@ -89,6 +83,141 @@ public class NewBooking extends AppCompatActivity {
 
         // Apply the adapter to the spinner
         staticSpinner.setAdapter(staticAdapter);
+
+        staticSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // Get the selected item
+                tableSizeSelected = (String) parentView.getItemAtPosition(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                Toast.makeText(getApplicationContext(), "A date must be selected", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void mealtime() {
+        Spinner staticSpinner = findViewById(R.id.meal_time_spinner);
+
+        // Create an ArrayAdapter using the string array and a default spinner
+        ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter.createFromResource(this,
+                R.array.mealtime, android.R.layout.simple_spinner_item);
+
+        // Specify the layout to use when the list of choices appears
+        staticAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Apply the adapter to the spinner
+        staticSpinner.setAdapter(staticAdapter);
+
+        staticSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // Get the selected item
+                mealtimeSelected = (String) parentView.getItemAtPosition(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                Toast.makeText(getApplicationContext(), "A date must be selected", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void location() {
+        Spinner staticSpinner = findViewById(R.id.location_spinner);
+
+        // Create an ArrayAdapter using the string array and a default spinner
+        ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter.createFromResource(this,
+                R.array.location, android.R.layout.simple_spinner_item);
+
+        // Specify the layout to use when the list of choices appears
+        staticAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Apply the adapter to the spinner
+        staticSpinner.setAdapter(staticAdapter);
+
+        staticSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // Get the selected item
+                locationSelected = (String) parentView.getItemAtPosition(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                Toast.makeText(getApplicationContext(), "A date must be selected", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void loadBookNow() {
+        Button bookings = findViewById(R.id.book_now_btn);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(NewBooking.this,
+                    Manifest.permission.POST_NOTIFICATIONS) !=
+                    PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(NewBooking.this,
+                        new String[]{Manifest.permission.POST_NOTIFICATIONS}, 101);
+            }
+        }
+
+        bookings.setOnClickListener(view -> {
+
+            try {
+                writeJson();
+                sendAPI();
+                sendNotification();
+
+            } catch (JSONException | IOException e) {
+                throw new RuntimeException(e);
+            }
+            Intent intent = new Intent(NewBooking.this, Success.class);
+            startActivity(intent);
+        });
+    }
+
+    private void sendAPI() throws JSONException, IOException {
+        String accounts = getFilesDir() + "/" + "booking.json";
+        String login = getFilesDir() + "/" + "login.json";
+        API.apiSendData(getApplicationContext(), accounts, login);
+    }
+
+    private void sendNotification() throws IOException {
+        String switchFile = getFilesDir() + "/" + "switchState.json";
+        String title = "Successful booking";
+        String body = "Your booking has been confirmed";
+        Notifications.notification(getApplicationContext(), title, body);
+    }
+
+    private void writeJson() throws JSONException, IOException {
+        String fileName = "booking.json";
+        JSONObject jsonBody = new JSONObject();
+
+        jsonBody.put("meal", mealtimeSelected);
+        jsonBody.put("seatingArea", locationSelected);
+        jsonBody.put("tableSize", tableSizeSelected);
+        jsonBody.put("date", dateSelected);
+        final String requestBody = jsonBody.toString();
+        Storage.writeJson(getApplicationContext(), fileName, requestBody);
+    }
+
+    private void loadManageBookings() {
+        Button bookings = findViewById(R.id.manage_bookings);
+        bookings.setOnClickListener(view -> {
+            Intent intent = new Intent(NewBooking.this, ManageBookings.class);
+            startActivity(intent);
+        });
+    }
+
+    private void loadAvailableTables() {
+        Button bookings = findViewById(R.id.available_tables);
+        bookings.setOnClickListener(view -> {
+            Intent intent = new Intent(NewBooking.this, AvailableTables.class);
+            startActivity(intent);
+        });
     }
 
     private void loadBottomBar() {
@@ -113,83 +242,6 @@ public class NewBooking extends AppCompatActivity {
         ImageButton settings = findViewById(R.id.account_icon);
         settings.setOnClickListener(view -> {
             Intent intent = new Intent(this, Settings.class);
-            startActivity(intent);
-        });
-    }
-
-    private void loadBookNow() {
-        Button bookings = findViewById(R.id.book_now_btn);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(NewBooking.this,
-                    Manifest.permission.POST_NOTIFICATIONS) !=
-                    PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(NewBooking.this,
-                        new String[]{Manifest.permission.POST_NOTIFICATIONS}, 101);
-            }
-        }
-
-        bookings.setOnClickListener(view -> {
-
-            getNotification();
-
-            try {
-                writeJson();
-
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
-            }
-
-            sendAPI();
-
-            Intent intent = new Intent(NewBooking.this, Success.class);
-            startActivity(intent);
-        });
-    }
-
-    private void sendAPI() {
-        Context context = getApplicationContext();
-        String accounts = getFilesDir() + "/" + "accounts.json";
-        String login = getFilesDir() + "/" + "login.json";
-        Storage.sendToApi(context, accounts, login);
-    }
-
-    private void getNotification() {
-        Context context = getApplicationContext();
-
-        String title = "Successful booking";
-        String body = "Your booking has been confirmed";
-        Notifications.notification(context, title, body);
-    }
-
-    private void writeJson() throws JSONException {
-        Context context = getApplicationContext();
-
-        String FILE_NAME = "accounts.json";
-
-        JSONObject jsonBody = new JSONObject();
-        jsonBody.put("meal", "Lunch");
-        jsonBody.put("seatingArea", "Outside");
-        jsonBody.put("tableSize", 6);
-        jsonBody.put("date", "2024-04-22");
-
-        final String requestBody = jsonBody.toString();
-
-        Storage.writeJson(context, FILE_NAME, requestBody);
-    }
-
-    private void loadManageBookings() {
-        Button bookings = findViewById(R.id.manage_bookings);
-        bookings.setOnClickListener(view -> {
-            Intent intent = new Intent(NewBooking.this, ManageBookings.class);
-            startActivity(intent);
-        });
-    }
-
-    private void loadAvailableTables() {
-        Button bookings = findViewById(R.id.available_tables);
-        bookings.setOnClickListener(view -> {
-            Intent intent = new Intent(NewBooking.this, AvailableTables.class);
             startActivity(intent);
         });
     }
