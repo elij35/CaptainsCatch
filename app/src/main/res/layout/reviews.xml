@@ -62,14 +62,16 @@
         android:background="@color/white_text_box_background"
         android:gravity="start"
         android:hint="@string/type_review"
+        android:padding="8dp"
         android:textColor="@color/black"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/book_now_btn"
+        android:id="@+id/submit_review_btn"
         android:layout_width="130dp"
         android:layout_height="48dp"
         android:layout_marginTop="15dp"
@@ -81,6 +83,27 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/review_input_box" />
+
+    <TextView
+        android:id="@+id/showReviewer"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/submit_review_btn" />
+
+    <TextView
+        android:id="@+id/showReviewMessage"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/showReviewer" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -151,6 +174,4 @@
         app:layout_constraintStart_toEndOf="@+id/reviews_icon"
         app:layout_constraintTop_toTopOf="@+id/toolbar"
         app:srcCompat="@drawable/profile" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
