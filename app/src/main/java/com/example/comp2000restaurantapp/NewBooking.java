@@ -166,9 +166,9 @@ public class NewBooking extends AppCompatActivity {
     }
 
     private void sendAPI() throws JSONException, IOException {
-        String accounts = getFilesDir() + "/" + "booking.json";
+        String booking = getFilesDir() + "/" + "booking.json";
         String login = getFilesDir() + "/" + "login.json";
-        API.apiSendData(getApplicationContext(), accounts, login);
+        API.apiSendData(getApplicationContext(), booking, login);
     }
 
     private void sendNotification() throws IOException {
