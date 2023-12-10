@@ -2,6 +2,8 @@ package com.example.comp2000restaurantapp;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -56,13 +58,22 @@ public class DateNow {
         return "January";
     }
 
-    public void dateDifference() throws ParseException {
+    public static long dateDifference(String date) throws ParseException {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
-        Date firstDate = sdf.parse("06/24/2017");
-        Date secondDate = sdf.parse("06/30/2017");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 
-        long diffInMillies = Math.abs(secondDate.getTime() - firstDate.getTime());
-        long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        String formatDateTime = now.format(formatter);
+
+        Date firstDate = sdf.parse(formatDateTime);
+        Date secondDate = sdf.parse(date);
+
+        assert secondDate != null;
+        assert firstDate != null;
+        long diffInSeconds = Math.abs(secondDate.getTime() - firstDate.getTime());
+
+        return TimeUnit.DAYS.convert(diffInSeconds, TimeUnit.MILLISECONDS);
     }
 }
