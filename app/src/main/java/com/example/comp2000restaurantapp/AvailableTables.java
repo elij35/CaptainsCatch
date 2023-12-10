@@ -8,7 +8,10 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Date;
+
 public class AvailableTables extends AppCompatActivity {
+    private Date date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
