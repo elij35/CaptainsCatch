@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -28,18 +29,23 @@ public class Reviews extends AppCompatActivity {
         RatingBar stars = findViewById(R.id.ratingBar);
         TextView person = findViewById(R.id.showReviewer);
         TextView message = findViewById(R.id.showReviewMessage);
-        Float ratingNumber = stars.getRating(); // get rating number from a rating bar
 
         postReview.setOnClickListener(view -> {
-            try {
-                String loginFile = getFilesDir() + "/" + "login.json";
-                String reviewerName = Storage.readJson(loginFile).get("customerName").textValue();
+            Float ratingNumber = stars.getRating(); // get rating number from a rating bar
 
-                person.setText(MessageFormat.format("{0} {1} {2} {3}", reviewerName, ",", ratingNumber, "stars:"));
-                message.setText(MessageFormat.format("{0} {1}", "Says:", review_input.getText()));
+            if (ratingNumber != 0 & review_input.getText().toString().length() != 0) {
+                try {
+                    String loginFile = getFilesDir() + "/" + "login.json";
+                    String reviewerName = Storage.readJson(loginFile).get("customerName").textValue();
 
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+                    person.setText(MessageFormat.format("{0} {1} {2} {3}", reviewerName, ",", ratingNumber, "stars:"));
+                    message.setText(MessageFormat.format("{0}", review_input.getText()));
+
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            } else {
+                Toast.makeText(getApplicationContext(), "You must select a rating and type a review!", Toast.LENGTH_SHORT).show();
             }
         });
     }
