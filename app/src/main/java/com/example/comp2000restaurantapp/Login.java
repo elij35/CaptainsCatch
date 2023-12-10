@@ -53,6 +53,7 @@ public class Login extends AppCompatActivity {
                 final String requestBody = jsonBody.toString();
 
                 Storage.writeJson(context, FILE_NAME, requestBody);
+                createJson();
 
                 Intent intent = new Intent(Login.this, Home.class);
                 startActivity(intent);
@@ -62,5 +63,18 @@ public class Login extends AppCompatActivity {
         } else {
             Toast.makeText(context, "Must enter full name", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void createJson() throws IOException {
+        String fileBookings = "booking.json";
+        String fileReviews = "reviews.json";
+
+        JSONObject jsonBody = new JSONObject();
+
+        final String bookingBody = jsonBody.toString();
+        final String reviewsBody = jsonBody.toString();
+
+        Storage.writeJson(getApplicationContext(), fileBookings, bookingBody);
+        Storage.writeJson(getApplicationContext(), fileReviews, reviewsBody);
     }
 }
