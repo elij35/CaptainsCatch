@@ -1,6 +1,12 @@
 package com.example.comp2000restaurantapp;
 
-public class Date {
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
+
+public class DateNow {
 
     public static String makeDateString(int day, int month, int year) {
         return day + " " + getMonthFormat(month) + " " + year;
@@ -10,15 +16,12 @@ public class Date {
         if (month < 10) {
             if (day < 10) {
                 return year + "-0" + month + "-0" + day;
-            }
-            else {
+            } else {
                 return year + "-0" + month + "-" + day;
             }
-        }
-        else if (day < 10) {
+        } else if (day < 10) {
             return year + "-" + month + "-0" + day;
-        }
-        else {
+        } else {
             return year + "-" + month + "-" + day;
         }
     }
@@ -51,5 +54,15 @@ public class Date {
 
         //default should never happen
         return "January";
+    }
+
+    public void dateDifference() throws ParseException {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+        Date firstDate = sdf.parse("06/24/2017");
+        Date secondDate = sdf.parse("06/30/2017");
+
+        long diffInMillies = Math.abs(secondDate.getTime() - firstDate.getTime());
+        long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
     }
 }
