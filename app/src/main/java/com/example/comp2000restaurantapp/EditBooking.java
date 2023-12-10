@@ -46,9 +46,9 @@ public class EditBooking extends AppCompatActivity {
         dateButton = findViewById(R.id.datePickerButton);
         DatePickerDialog.OnDateSetListener dateSetListener = (datePicker, year, month, day) -> {
             month = month + 1;
-            String date = Date.makeDateString(day, month, year);
+            String date = DateNow.makeDateString(day, month, year);
             dateButton.setText(date);
-            dateSelected = Date.makeJsonDateString(year, month, day);
+            dateSelected = DateNow.makeJsonDateString(year, month, day);
         };
 
         Calendar cal = Calendar.getInstance();
@@ -143,7 +143,7 @@ public class EditBooking extends AppCompatActivity {
                 } catch (JSONException | IOException e) {
                     throw new RuntimeException(e);
                 }
-                Intent intent = new Intent(this, BookingSuccess.class);
+                Intent intent = new Intent(this, BookingAmendSuccess.class);
                 startActivity(intent);
             } else {
                 Toast.makeText(getApplicationContext(), "You must a date, mealtime, location and table size!", Toast.LENGTH_SHORT).show();
@@ -159,7 +159,7 @@ public class EditBooking extends AppCompatActivity {
 
     private void sendNotification() throws IOException {
         String title = "Successful booking";
-        String body = "Your booking has been confirmed";
+        String body = "Your booking has been changed!";
         Notifications.notification(getApplicationContext(), title, body);
     }
 

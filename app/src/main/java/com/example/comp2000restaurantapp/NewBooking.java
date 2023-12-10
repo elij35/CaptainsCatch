@@ -49,9 +49,9 @@ public class NewBooking extends AppCompatActivity {
         dateButton = findViewById(R.id.datePickerButton);
         DatePickerDialog.OnDateSetListener dateSetListener = (datePicker, year, month, day) -> {
             month = month + 1;
-            String date = Date.makeDateString(day, month, year);
+            String date = DateNow.makeDateString(day, month, year);
             dateButton.setText(date);
-            dateSelected = Date.makeJsonDateString(year, month, day);
+            dateSelected = DateNow.makeJsonDateString(year, month, day);
         };
 
         Calendar cal = Calendar.getInstance();
@@ -137,6 +137,8 @@ public class NewBooking extends AppCompatActivity {
         bookings.setOnClickListener(view -> {
 
             if (!mealtimeSelected.equals("Select mealtime") & !locationSelected.equals("Select location") & !tableSizeSelected.equals("Select table size") & dateSelected != null) {
+
+                //if (dateSelected)
                 try {
                     writeJson();
                     sendAPI();
