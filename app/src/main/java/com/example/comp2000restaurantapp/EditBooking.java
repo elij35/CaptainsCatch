@@ -1,8 +1,5 @@
 package com.example.comp2000restaurantapp;
 
-import static com.example.comp2000restaurantapp.Date.makeDateString;
-import static com.example.comp2000restaurantapp.Date.makeJsonDateString;
-
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -34,26 +31,23 @@ public class EditBooking extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_booking);
+        setContentView(R.layout.edit_booking);
 
         loadAmendSuccess();
-        loadManageBookings();
-        loadAvailableTables();
         loadBottomBar();
+        initDatePicker();
         mealtime();
         location();
         table_size();
-        initDatePicker();
-
-        dateButton = findViewById(R.id.datePickerButton);
     }
 
     private void initDatePicker() {
+        dateButton = findViewById(R.id.datePickerButton);
         DatePickerDialog.OnDateSetListener dateSetListener = (datePicker, year, month, day) -> {
             month = month + 1;
-            String date = makeDateString(day, month, year);
+            String date = Date.makeDateString(day, month, year);
             dateButton.setText(date);
-            dateSelected = makeJsonDateString(year, month, day);
+            dateSelected = Date.makeJsonDateString(year, month, day);
         };
 
         Calendar cal = Calendar.getInstance();
@@ -71,22 +65,15 @@ public class EditBooking extends AppCompatActivity {
     private void table_size() {
         Spinner staticSpinner = findViewById(R.id.table_size_spinner);
 
-        // Create an ArrayAdapter using the string array and a default spinner
         ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter.createFromResource(this,
                 R.array.table_size, android.R.layout.simple_spinner_item);
 
-        // Specify the layout to use when the list of choices appears
         staticAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        staticSpinner.setPrompt("Select your favorite Planet!");
-
-
-        // Apply the adapter to the spinner
         staticSpinner.setAdapter(staticAdapter);
 
         staticSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                // Get the selected item
                 tableSizeSelected = (String) parentView.getItemAtPosition(position);
             }
 
@@ -100,20 +87,15 @@ public class EditBooking extends AppCompatActivity {
     private void mealtime() {
         Spinner staticSpinner = findViewById(R.id.meal_time_spinner);
 
-        // Create an ArrayAdapter using the string array and a default spinner
         ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter.createFromResource(this,
                 R.array.mealtime, android.R.layout.simple_spinner_item);
 
-        // Specify the layout to use when the list of choices appears
         staticAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // Apply the adapter to the spinner
         staticSpinner.setAdapter(staticAdapter);
 
         staticSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                // Get the selected item
                 mealtimeSelected = (String) parentView.getItemAtPosition(position);
             }
 
@@ -127,20 +109,15 @@ public class EditBooking extends AppCompatActivity {
     private void location() {
         Spinner staticSpinner = findViewById(R.id.location_spinner);
 
-        // Create an ArrayAdapter using the string array and a default spinner
         ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter.createFromResource(this,
                 R.array.location, android.R.layout.simple_spinner_item);
 
-        // Specify the layout to use when the list of choices appears
         staticAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // Apply the adapter to the spinner
         staticSpinner.setAdapter(staticAdapter);
 
         staticSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                // Get the selected item
                 locationSelected = (String) parentView.getItemAtPosition(position);
             }
 
