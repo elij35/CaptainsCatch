@@ -2,13 +2,18 @@ package com.example.comp2000restaurantapp;
 
 import static com.example.comp2000restaurantapp.Storage.readJson;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.text.MessageFormat;
@@ -28,10 +33,22 @@ public class ManageBookings extends AppCompatActivity {
         loadCancelBooking();
 
         try {
-            loadBookingDetails();
-        } catch (IOException | ParseException e) {
+            checkData();
+
+            if (checkData()) {
+                loadBookingDetails();
+            } else {
+                hide();
+            }
+
+        } catch (IOException | ParseException | JSONException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private boolean checkData() throws IOException {
+        String booking = getFilesDir() + "/" + "booking.json";
+        return Storage.readJson(booking).has("date");
     }
 
     private void loadBookingDetails() throws IOException, ParseException {
@@ -87,10 +104,45 @@ public class ManageBookings extends AppCompatActivity {
 
     private void loadCancelBooking() {
         Button bookings = findViewById(R.id.cancel_booking);
+
         bookings.setOnClickListener(view -> {
-            Intent intent = new Intent(this, Error.class);
-            startActivity(intent);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setCancelable(true);
+            builder.setTitle("Title");
+            builder.setMessage("Message");
+            builder.setPositiveButton("Confirm", (dialog, which) -> {
+                try {
+                    hide();
+                } catch (JSONException | IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            builder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
         });
+    }
+
+    public void hide() throws JSONException, IOException {
+        Button cancelbtn = findViewById(R.id.cancel_booking);
+        Button editbtn = findViewById(R.id.edit_booking);
+        TextView mealTime = findViewById(R.id.textBox1_mealTime);
+        TextView location = findViewById(R.id.textBox1_location);
+        TextView tableSize = findViewById(R.id.textBox1_tableSize);
+        TextView mainBox = findViewById(R.id.booking1);
+
+        mealTime.setVisibility(View.INVISIBLE);
+        location.setVisibility(View.INVISIBLE);
+        tableSize.setVisibility(View.INVISIBLE);
+        mainBox.setVisibility(View.INVISIBLE);
+        cancelbtn.setVisibility(View.INVISIBLE);
+        editbtn.setVisibility(View.INVISIBLE);
+
+        String fileBookings = "booking.json";
+        JSONObject jsonBody = new JSONObject();
+        final String bookingBody = jsonBody.toString();
+        Storage.writeJson(getApplicationContext(), fileBookings, bookingBody);
     }
 
     private void loadBackToBookings() {
