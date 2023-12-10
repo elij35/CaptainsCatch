@@ -1,5 +1,6 @@
 package com.example.comp2000restaurantapp;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Calendar;
 
 public class EditBooking extends AppCompatActivity {
@@ -136,19 +138,44 @@ public class EditBooking extends AppCompatActivity {
 
             if (!mealtimeSelected.equals("Select mealtime") & !locationSelected.equals("Select location") & !tableSizeSelected.equals("Select table size") & dateSelected != null) {
                 try {
-                    writeJson();
-                    sendAPI();
-                    sendNotification();
-
-                } catch (JSONException | IOException e) {
+                    if (DateNow.dateDifference(dateSelected) < 7) {
+                        showDateAlert();
+                    } else {
+                        writeJson();
+                        sendAPI();
+                        sendNotification();
+                        Intent intent = new Intent(this, BookingSuccess.class);
+                        startActivity(intent);
+                    }
+                } catch (JSONException | IOException | ParseException e) {
                     throw new RuntimeException(e);
                 }
-                Intent intent = new Intent(this, BookingAmendSuccess.class);
-                startActivity(intent);
             } else {
-                Toast.makeText(getApplicationContext(), "You must a date, mealtime, location and table size!", Toast.LENGTH_SHORT).show();
+                showNotSelectedAlert();
             }
         });
+    }
+
+    private void showDateAlert() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle("Date is too soon");
+        builder.setMessage("Booking date must be at least a week in advance!");
+        builder.setNegativeButton(android.R.string.ok, (dialog, which) -> {
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void showNotSelectedAlert() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle("All inputs must be selected");
+        builder.setMessage("You must a date, mealtime, location and table size!");
+        builder.setNegativeButton(android.R.string.ok, (dialog, which) -> {
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void sendAPI() throws JSONException, IOException {

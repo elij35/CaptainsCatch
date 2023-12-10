@@ -137,7 +137,6 @@ public class NewBooking extends AppCompatActivity {
     private void loadBookNow() {
         Button bookings = findViewById(R.id.book_now_btn);
         bookings.setOnClickListener(view -> {
-
             if (!mealtimeSelected.equals("Select mealtime") & !locationSelected.equals("Select location") & !tableSizeSelected.equals("Select table size") & dateSelected != null) {
                 try {
                     if (DateNow.dateDifference(dateSelected) < 7) {
@@ -146,14 +145,14 @@ public class NewBooking extends AppCompatActivity {
                         writeJson();
                         sendAPI();
                         sendNotification();
-                        Intent intent = new Intent(NewBooking.this, BookingSuccess.class);
+                        Intent intent = new Intent(this, BookingSuccess.class);
                         startActivity(intent);
                     }
                 } catch (JSONException | IOException | ParseException e) {
                     throw new RuntimeException(e);
                 }
             } else {
-                Toast.makeText(getApplicationContext(), "You must a date, mealtime, location and table size!", Toast.LENGTH_SHORT).show();
+                showNotSelectedAlert();
             }
         });
     }
@@ -163,7 +162,18 @@ public class NewBooking extends AppCompatActivity {
         builder.setCancelable(true);
         builder.setTitle("Date is too soon");
         builder.setMessage("Booking date must be at least a week in advance!");
-        builder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
+        builder.setNegativeButton(android.R.string.ok, (dialog, which) -> {
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void showNotSelectedAlert() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle("All inputs must be selected");
+        builder.setMessage("You must a date, mealtime, location and table size!");
+        builder.setNegativeButton(android.R.string.ok, (dialog, which) -> {
         });
         AlertDialog dialog = builder.create();
         dialog.show();

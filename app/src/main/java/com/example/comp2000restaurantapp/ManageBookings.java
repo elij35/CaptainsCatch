@@ -68,32 +68,6 @@ public class ManageBookings extends AppCompatActivity {
         mealTime.setText(MessageFormat.format("Meal: {0}", readJson(booking).get("meal").textValue()));
     }
 
-    private void loadBottomBar() {
-        ImageButton home = findViewById(R.id.home_icon);
-        home.setOnClickListener(view -> {
-            Intent intent = new Intent(this, Home.class);
-            startActivity(intent);
-        });
-
-        ImageButton bookings = findViewById(R.id.calendar_icon);
-        bookings.setOnClickListener(view -> {
-            Intent intent = new Intent(this, NewBooking.class);
-            startActivity(intent);
-        });
-
-        ImageButton reviews = findViewById(R.id.reviews_icon);
-        reviews.setOnClickListener(view -> {
-            Intent intent = new Intent(this, Reviews.class);
-            startActivity(intent);
-        });
-
-        ImageButton settings = findViewById(R.id.account_icon);
-        settings.setOnClickListener(view -> {
-            Intent intent = new Intent(this, Settings.class);
-            startActivity(intent);
-        });
-    }
-
     private void loadEditBooking() {
         Button bookings = findViewById(R.id.edit_booking);
         bookings.setOnClickListener(view -> {
@@ -106,25 +80,52 @@ public class ManageBookings extends AppCompatActivity {
         Button bookings = findViewById(R.id.cancel_booking);
 
         bookings.setOnClickListener(view -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setCancelable(true);
-            builder.setTitle("Title");
-            builder.setMessage("Message");
-            builder.setPositiveButton("Confirm", (dialog, which) -> {
-                try {
-                    hide();
-                } catch (JSONException | IOException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-            builder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
-            });
-            AlertDialog dialog = builder.create();
-            dialog.show();
+            cancelAlert();
         });
     }
 
-    public void hide() throws JSONException, IOException {
+    private void cancelAlert() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle("Cancel booking");
+        builder.setMessage("Are you sure you want to cancel your booking?");
+        builder.setPositiveButton("Confirm", (dialog, which) -> {
+
+            String booking = getFilesDir() + "/" + "booking.json";
+            try {
+                if (DateNow.dateDifference(Storage.readJson(booking).get("date").textValue()) <= 1) {
+                    showDateAlert();
+                } else {
+                    try {
+                        hide();
+                    } catch (JSONException | IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+
+            } catch (ParseException | IOException e) {
+                throw new RuntimeException(e);
+            }
+
+        });
+        builder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void showDateAlert() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle("Can't cancel booking");
+        builder.setMessage("Unfortunately the booking cannot be cancelled as it is less than 24 hours away.");
+        builder.setNegativeButton(android.R.string.ok, (dialog, which) -> {
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void hide() throws JSONException, IOException {
         Button cancelbtn = findViewById(R.id.cancel_booking);
         Button editbtn = findViewById(R.id.edit_booking);
         TextView mealTime = findViewById(R.id.textBox1_mealTime);
@@ -157,6 +158,32 @@ public class ManageBookings extends AppCompatActivity {
         Button previous_bookings = findViewById(R.id.previous_bookings);
         previous_bookings.setOnClickListener(view -> {
             Intent intent = new Intent(this, PreviousBookings.class);
+            startActivity(intent);
+        });
+    }
+
+    private void loadBottomBar() {
+        ImageButton home = findViewById(R.id.home_icon);
+        home.setOnClickListener(view -> {
+            Intent intent = new Intent(this, Home.class);
+            startActivity(intent);
+        });
+
+        ImageButton bookings = findViewById(R.id.calendar_icon);
+        bookings.setOnClickListener(view -> {
+            Intent intent = new Intent(this, NewBooking.class);
+            startActivity(intent);
+        });
+
+        ImageButton reviews = findViewById(R.id.reviews_icon);
+        reviews.setOnClickListener(view -> {
+            Intent intent = new Intent(this, Reviews.class);
+            startActivity(intent);
+        });
+
+        ImageButton settings = findViewById(R.id.account_icon);
+        settings.setOnClickListener(view -> {
+            Intent intent = new Intent(this, Settings.class);
             startActivity(intent);
         });
     }
