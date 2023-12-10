@@ -73,7 +73,12 @@ public class DateNow {
         assert secondDate != null;
         assert firstDate != null;
         long diffInSeconds = Math.abs(secondDate.getTime() - firstDate.getTime());
+        long test = TimeUnit.DAYS.convert(diffInSeconds, TimeUnit.MILLISECONDS);
 
-        return TimeUnit.DAYS.convert(diffInSeconds, TimeUnit.MILLISECONDS);
+        if (firstDate.getTime() > secondDate.getTime()) {
+            return 0;
+        } else {
+            return test;
+        }
     }
 }
