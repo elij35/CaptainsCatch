@@ -34,6 +34,7 @@ public class EditBooking extends AppCompatActivity {
         setContentView(R.layout.edit_booking);
 
         loadAmendSuccess();
+        loadManageBookings();
         loadBottomBar();
         initDatePicker();
         mealtime();
@@ -172,6 +173,14 @@ public class EditBooking extends AppCompatActivity {
         jsonBody.put("date", dateSelected);
         final String requestBody = jsonBody.toString();
         Storage.writeJson(getApplicationContext(), fileName, requestBody);
+    }
+
+    private void loadManageBookings() {
+        Button manageBookings = findViewById(R.id.manage_bookings);
+        manageBookings.setOnClickListener(view -> {
+            Intent intent = new Intent(this, ManageBookings.class);
+            startActivity(intent);
+        });
     }
 
     private void loadBottomBar() {
