@@ -45,17 +45,87 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/app_name" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/back_to_bookings"
-        android:layout_width="275dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="25dp"
-        android:background="@drawable/ic_button"
-        android:text="@string/back_bookings_btn"
-        android:textColor="@color/button_text"
-        app:layout_constraintBottom_toTopOf="@+id/toolbar"
+    <!--First text box -->
+    <TextView
+        android:id="@+id/booking1"
+        android:layout_width="320dp"
+        android:layout_height="112dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/white_text_box_background"
+        android:text="@string/text_box1_date"
+        android:textAlignment="center"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/manage_booking" />
+
+    <TextView
+        android:id="@+id/textBox1_tableSize"
+        android:layout_width="80dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="30dp"
+        android:background="@null"
+        android:text="@string/text_box1_table_size"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/textBox1_location"
+        app:layout_constraintStart_toStartOf="@+id/booking1"
+        app:layout_constraintTop_toTopOf="@+id/booking1" />
+
+    <TextView
+        android:id="@+id/textBox1_location"
+        android:layout_width="120dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="5dp"
+        android:background="@null"
+        android:text="@string/text_box1_location"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/textBox1_mealTime"
+        app:layout_constraintStart_toEndOf="@+id/textBox1_tableSize"
+        app:layout_constraintTop_toTopOf="@+id/booking1" />
+
+    <TextView
+        android:id="@+id/textBox1_mealTime"
+        android:layout_width="120dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="5dp"
+        android:background="@null"
+        android:text="@string/text_box1_meal_time"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/booking1"
+        app:layout_constraintStart_toEndOf="@+id/textBox1_location"
+        app:layout_constraintTop_toTopOf="@+id/booking1" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/edit_booking"
+        android:layout_width="140dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/ic_button"
+        android:text="@string/edit_booking_btn"
+        android:textColor="@color/button_text"
+        app:layout_constraintBottom_toBottomOf="@+id/booking1"
+        app:layout_constraintStart_toStartOf="@+id/booking1" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/cancel_booking"
+        android:layout_width="140dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/ic_button"
+        android:text="@string/cancel_booking_btn"
+        android:textColor="@color/button_text"
+        app:layout_constraintBottom_toBottomOf="@+id/booking1"
+        app:layout_constraintEnd_toEndOf="@+id/booking1" />
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/previous_bookings"
@@ -66,6 +136,18 @@
         android:text="@string/previous_bookings_btn"
         android:textColor="@color/button_text"
         app:layout_constraintBottom_toTopOf="@+id/back_to_bookings"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/back_to_bookings"
+        android:layout_width="275dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="25dp"
+        android:background="@drawable/ic_button"
+        android:text="@string/back_bookings_btn"
+        android:textColor="@color/button_text"
+        app:layout_constraintBottom_toTopOf="@+id/toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -138,40 +220,4 @@
         app:layout_constraintStart_toEndOf="@+id/reviews_icon"
         app:layout_constraintTop_toTopOf="@+id/toolbar"
         app:srcCompat="@drawable/profile" />
-
-    <TextView
-        android:id="@+id/booking1"
-        android:layout_width="350dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="15dp"
-        android:background="@color/white_text_box_background"
-        android:gravity="start"
-        android:text="@string/back_bookings_btn"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/manage_booking" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/edit_booking"
-        android:layout_width="140dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/ic_button"
-        android:text="@string/edit_booking_btn"
-        android:textColor="@color/button_text"
-        app:layout_constraintBottom_toBottomOf="@+id/booking1"
-        app:layout_constraintStart_toStartOf="@+id/booking1" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/cancel_booking"
-        android:layout_width="140dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/ic_button"
-        android:text="@string/cancel_booking_btn"
-        android:textColor="@color/button_text"
-        app:layout_constraintBottom_toBottomOf="@+id/booking1"
-        app:layout_constraintEnd_toEndOf="@+id/booking1" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,6 +17,8 @@ public class ManageBookings extends AppCompatActivity {
         loadBackToBookings();
         loadBottomBar();
         loadPreviousBookings();
+        loadEditBooking();
+        loadCancelBooking();
     }
 
     private void loadBottomBar() {
@@ -45,10 +47,26 @@ public class ManageBookings extends AppCompatActivity {
         });
     }
 
+    private void loadEditBooking() {
+        Button bookings = findViewById(R.id.edit_booking);
+        bookings.setOnClickListener(view -> {
+            Intent intent = new Intent(this, EditBooking.class);
+            startActivity(intent);
+        });
+    }
+
+    private void loadCancelBooking() {
+        Button bookings = findViewById(R.id.cancel_booking);
+        bookings.setOnClickListener(view -> {
+            Intent intent = new Intent(this, Error.class);
+            startActivity(intent);
+        });
+    }
+
     private void loadBackToBookings() {
         Button bookings = findViewById(R.id.back_to_bookings);
         bookings.setOnClickListener(view -> {
-            Intent intent = new Intent(ManageBookings.this, NewBooking.class);
+            Intent intent = new Intent(this, NewBooking.class);
             startActivity(intent);
         });
     }
@@ -56,7 +74,7 @@ public class ManageBookings extends AppCompatActivity {
     private void loadPreviousBookings() {
         Button previous_bookings = findViewById(R.id.previous_bookings);
         previous_bookings.setOnClickListener(view -> {
-            Intent intent = new Intent(ManageBookings.this, PreviousBookings.class);
+            Intent intent = new Intent(this, PreviousBookings.class);
             startActivity(intent);
         });
     }
