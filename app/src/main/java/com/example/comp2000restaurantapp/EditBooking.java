@@ -133,16 +133,20 @@ public class EditBooking extends AppCompatActivity {
 
         bookings.setOnClickListener(view -> {
 
-            try {
-                writeJson();
-                sendAPI();
-                sendNotification();
+            if (!mealtimeSelected.equals("Select mealtime") & !locationSelected.equals("Select location") & !tableSizeSelected.equals("Select table size") & dateSelected != null) {
+                try {
+                    writeJson();
+                    sendAPI();
+                    sendNotification();
 
-            } catch (JSONException | IOException e) {
-                throw new RuntimeException(e);
+                } catch (JSONException | IOException e) {
+                    throw new RuntimeException(e);
+                }
+                Intent intent = new Intent(this, BookingSuccess.class);
+                startActivity(intent);
+            } else {
+                Toast.makeText(getApplicationContext(), "You must a date, mealtime, location and table size!", Toast.LENGTH_SHORT).show();
             }
-            Intent intent = new Intent(this, BookingAmendSuccess.class);
-            startActivity(intent);
         });
     }
 

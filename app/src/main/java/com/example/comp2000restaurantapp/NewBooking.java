@@ -1,10 +1,7 @@
 package com.example.comp2000restaurantapp;
 
-import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,8 +12,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -139,29 +134,22 @@ public class NewBooking extends AppCompatActivity {
 
     private void loadBookNow() {
         Button bookings = findViewById(R.id.book_now_btn);
-
-        //Checks if notifications are allowed
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(NewBooking.this,
-                    Manifest.permission.POST_NOTIFICATIONS) !=
-                    PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(NewBooking.this,
-                        new String[]{Manifest.permission.POST_NOTIFICATIONS}, 101);
-            }
-        }
-
         bookings.setOnClickListener(view -> {
 
-            try {
-                writeJson();
-                sendAPI();
-                sendNotification();
+            if (!mealtimeSelected.equals("Select mealtime") & !locationSelected.equals("Select location") & !tableSizeSelected.equals("Select table size") & dateSelected != null) {
+                try {
+                    writeJson();
+                    sendAPI();
+                    sendNotification();
 
-            } catch (JSONException | IOException e) {
-                throw new RuntimeException(e);
+                } catch (JSONException | IOException e) {
+                    throw new RuntimeException(e);
+                }
+                Intent intent = new Intent(NewBooking.this, BookingSuccess.class);
+                startActivity(intent);
+            } else {
+                Toast.makeText(getApplicationContext(), "You must a date, mealtime, location and table size!", Toast.LENGTH_SHORT).show();
             }
-            Intent intent = new Intent(NewBooking.this, BookingSuccess.class);
-            startActivity(intent);
         });
     }
 
