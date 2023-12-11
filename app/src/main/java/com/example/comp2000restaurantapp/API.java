@@ -7,8 +7,7 @@ import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -17,6 +16,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class API {
 
@@ -35,17 +36,9 @@ public class API {
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         String URL = "https://web.socem.plymouth.ac.uk/COMP2000/ReservationApi/api/Reservations/";
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.i("VOLLEY", response);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("VOLLEY", error.toString());
-            }
-        }) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
+                response -> Log.i("VOLLEY", response),
+                error -> Log.e("VOLLEY", error.toString())) {
             @Override
             public String getBodyContentType() {
                 return "application/json; charset=utf-8";
@@ -57,5 +50,28 @@ public class API {
             }
         };
         requestQueue.add(stringRequest);
+    }
+
+    public static void apiGetData(Context context, String filename) throws IOException, JSONException {
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        String site = "https://web.socem.plymouth.ac.uk/COMP2000/ReservationApi/api/Reservations/";
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, site, null, response -> {
+            JSONObject jsonBody = new JSONObject();
+
+            try {
+                jsonBody.put("Data", response);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+            final String bookingBody = jsonBody.toString();
+            try {
+                Storage.writeJson(context, filename, bookingBody);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }, null);
+
+        requestQueue.add(jsonArrayRequest);
     }
 }
