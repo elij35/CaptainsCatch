@@ -57,7 +57,7 @@ public class AvailableTables extends AppCompatActivity {
         loadAvailableTables.setVisibility(View.INVISIBLE);
     }
 
-    private void unhide() {
+    private void unHide() {
         Button loadAvailableTables = findViewById(R.id.showAvailable);
         loadAvailableTables.setVisibility(View.VISIBLE);
     }
@@ -70,11 +70,11 @@ public class AvailableTables extends AppCompatActivity {
 
             if (!mealtimeSelected.equals("Select table size") & dateSelected != null) {
                 try {
-                    if (DateNow.dateDifference(dateSelected) < 20) {
+                    if (DateNow.dateDifference(dateSelected) < 7) {
                         showDateAlert();
                     } else {
                         API.apiGetData(getApplicationContext(), "date", dateSelected, dateFile);
-                        unhide();
+                        unHide();
                         sendNotification();
                     }
                 } catch (ParseException | IOException | JSONException e) {
@@ -98,7 +98,7 @@ public class AvailableTables extends AppCompatActivity {
             String availableFile = getFilesDir() + "/" + "date.json";
 
             try {
-                if (Storage.readJson(availableFile).get("key").asInt() < 7) {
+                if (Storage.readJson(availableFile).get("key").asInt() < 15) {
                     Log.i("Yes string output: ", String.valueOf(Storage.readJson(availableFile).get("key")));
                     AvailableTrueAlert();
                 } else {
@@ -226,12 +226,9 @@ public class AvailableTables extends AppCompatActivity {
 
     private void loadBackToBookings() {
         Button bookings = findViewById(R.id.back_to_bookings);
-        bookings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(AvailableTables.this, NewBooking.class);
-                startActivity(intent);
-            }
+        bookings.setOnClickListener(view -> {
+            Intent intent = new Intent(AvailableTables.this, NewBooking.class);
+            startActivity(intent);
         });
     }
 }

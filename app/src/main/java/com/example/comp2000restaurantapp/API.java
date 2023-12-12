@@ -71,7 +71,7 @@ public class API {
                 for (int i = 0; i < response.length(); i++) {
                     JSONObject reservationJSON;
                     reservationJSON = response.getJSONObject(i);
-                    String[] date = new String[0];
+                    String[] date;
                     date = new String[]{reservationJSON.getString(key)};
 
                     if (date[0].equalsIgnoreCase(value)) {

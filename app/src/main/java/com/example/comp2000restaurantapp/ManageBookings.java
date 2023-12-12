@@ -78,10 +78,7 @@ public class ManageBookings extends AppCompatActivity {
 
     private void loadCancelBooking() {
         Button bookings = findViewById(R.id.cancel_booking);
-
-        bookings.setOnClickListener(view -> {
-            cancelAlert();
-        });
+        bookings.setOnClickListener((View view) -> cancelAlert());
     }
 
     private void cancelAlert() {
@@ -126,8 +123,8 @@ public class ManageBookings extends AppCompatActivity {
     }
 
     private void hide() throws JSONException, IOException {
-        Button cancelbtn = findViewById(R.id.cancel_booking);
-        Button editbtn = findViewById(R.id.edit_booking);
+        Button cancelButton = findViewById(R.id.cancel_booking);
+        Button EditButton = findViewById(R.id.edit_booking);
         TextView mealTime = findViewById(R.id.textBox1_mealTime);
         TextView location = findViewById(R.id.textBox1_location);
         TextView tableSize = findViewById(R.id.textBox1_tableSize);
@@ -137,8 +134,8 @@ public class ManageBookings extends AppCompatActivity {
         location.setVisibility(View.INVISIBLE);
         tableSize.setVisibility(View.INVISIBLE);
         mainBox.setVisibility(View.INVISIBLE);
-        cancelbtn.setVisibility(View.INVISIBLE);
-        editbtn.setVisibility(View.INVISIBLE);
+        cancelButton.setVisibility(View.INVISIBLE);
+        EditButton.setVisibility(View.INVISIBLE);
 
         String fileBookings = "booking.json";
         JSONObject jsonBody = new JSONObject();

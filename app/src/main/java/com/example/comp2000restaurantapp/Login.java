@@ -26,7 +26,7 @@ public class Login extends AppCompatActivity {
     }
 
     private void login() {
-        MaterialButton loginbtn = (MaterialButton) findViewById(R.id.login_btn);
+        MaterialButton loginbtn = findViewById(R.id.login_btn);
 
         loginbtn.setOnClickListener(v -> {
 
@@ -39,8 +39,8 @@ public class Login extends AppCompatActivity {
     }
 
     private void storeLogin() throws JSONException, IOException {
-        TextView username = (TextView) findViewById(R.id.username);
-        TextView phoneNumber = (TextView) findViewById(R.id.phone_number);
+        TextView username = findViewById(R.id.username);
+        TextView phoneNumber = findViewById(R.id.phone_number);
 
         Context context = getApplicationContext();
         String FILE_NAME = "login.json";
@@ -80,10 +80,10 @@ public class Login extends AppCompatActivity {
         jsonBody.put("notificationsOn", "On");
         final String notificationBody = jsonBody.toString();
 
-        //Storage.writeJson(getApplicationContext(), fileBookings, bookingBody);
-        //Storage.writeJson(getApplicationContext(), fileReviews, reviewsBody);
-        //Storage.writeJson(getApplicationContext(), notifications, notificationBody);
-        //Storage.writeJson(getApplicationContext(), date, dateBody);
+        Storage.writeJson(getApplicationContext(), fileBookings, bookingBody);
+        Storage.writeJson(getApplicationContext(), fileReviews, reviewsBody);
+        Storage.writeJson(getApplicationContext(), notifications, notificationBody);
+        Storage.writeJson(getApplicationContext(), date, dateBody);
 
     }
 }

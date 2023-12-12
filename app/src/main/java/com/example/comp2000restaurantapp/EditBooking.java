@@ -144,7 +144,7 @@ public class EditBooking extends AppCompatActivity {
                         writeJson();
                         sendAPI();
                         sendNotification();
-                        Intent intent = new Intent(this, BookingSuccess.class);
+                        Intent intent = new Intent(this, BookingAmendSuccess.class);
                         startActivity(intent);
                     }
                 } catch (JSONException | IOException | ParseException e) {
