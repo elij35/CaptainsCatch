@@ -1,8 +1,10 @@
 package com.example.comp2000restaurantapp;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,6 +15,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONException;
+
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.Calendar;
 
 public class AvailableTables extends AppCompatActivity {
@@ -20,17 +26,133 @@ public class AvailableTables extends AppCompatActivity {
     private DatePickerDialog datePickerDialog;
     private Button dateButton;
     String dateSelected;
-    String tableSizeSelected;
+    String mealtimeSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.available_tables);
 
+        hide();
         loadBackToBookings();
         loadBottomBar();
         initDatePicker();
-        table_size();
+        mealtime();
+
+        try {
+            showAvailable();
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            loadApiCheck();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void hide() {
+        Button loadAvailableTables = findViewById(R.id.showAvailable);
+        loadAvailableTables.setVisibility(View.INVISIBLE);
+    }
+
+    private void unhide() {
+        Button loadAvailableTables = findViewById(R.id.showAvailable);
+        loadAvailableTables.setVisibility(View.VISIBLE);
+    }
+
+    private void loadApiCheck() throws IOException {
+        Button bookings = findViewById(R.id.check_available);
+        bookings.setOnClickListener(view -> {
+
+            String dateFile = "date.json";
+
+            if (!mealtimeSelected.equals("Select table size") & dateSelected != null) {
+                try {
+                    if (DateNow.dateDifference(dateSelected) < 20) {
+                        showDateAlert();
+                    } else {
+                        API.apiGetData(getApplicationContext(), "date", dateSelected, dateFile);
+                        unhide();
+                        sendNotification();
+                    }
+                } catch (ParseException | IOException | JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            } else {
+                showNotSelectedAlert();
+            }
+        });
+    }
+
+    private void sendNotification() throws IOException {
+        String title = "Availability";
+        String body = "We are now checking the availability";
+        Notifications.notification(getApplicationContext(), title, body);
+    }
+
+    private void showAvailable() throws IOException, InterruptedException {
+        Button bookings = findViewById(R.id.showAvailable);
+        bookings.setOnClickListener(view -> {
+            String availableFile = getFilesDir() + "/" + "date.json";
+
+            try {
+                if (Storage.readJson(availableFile).get("key").asInt() < 7) {
+                    Log.i("Yes string output: ", String.valueOf(Storage.readJson(availableFile).get("key")));
+                    AvailableTrueAlert();
+                } else {
+                    Log.i("No string output: ", String.valueOf(Storage.readJson(availableFile).get("key")));
+                    AvailableFalseAlert();
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
+    private void AvailableTrueAlert() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle("Tables are available!");
+        builder.setMessage("Book your table now on the bookings page!");
+        builder.setNegativeButton(android.R.string.ok, (dialog, which) -> {
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void AvailableFalseAlert() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle("No tables are available");
+        builder.setMessage("Unfortunately the date you selected is fully booked.");
+        builder.setNegativeButton(android.R.string.ok, (dialog, which) -> {
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void showDateAlert() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle("Date is too soon");
+        builder.setMessage("Booking date must be at least a week in advance!");
+        builder.setNegativeButton(android.R.string.ok, (dialog, which) -> {
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void showNotSelectedAlert() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle("All inputs must be selected");
+        builder.setMessage("You must a date, mealtime, location and table size!");
+        builder.setNegativeButton(android.R.string.ok, (dialog, which) -> {
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void initDatePicker() {
@@ -54,11 +176,11 @@ public class AvailableTables extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-    private void table_size() {
-        Spinner staticSpinner = findViewById(R.id.table_size_spinner);
+    private void mealtime() {
+        Spinner staticSpinner = findViewById(R.id.meal_time_spinner);
 
         ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter.createFromResource(this,
-                R.array.table_size, android.R.layout.simple_spinner_item);
+                R.array.mealtime, android.R.layout.simple_spinner_item);
 
         staticAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         staticSpinner.setAdapter(staticAdapter);
@@ -66,7 +188,7 @@ public class AvailableTables extends AppCompatActivity {
         staticSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                tableSizeSelected = (String) parentView.getItemAtPosition(position);
+                mealtimeSelected = (String) parentView.getItemAtPosition(position);
             }
 
             @Override
