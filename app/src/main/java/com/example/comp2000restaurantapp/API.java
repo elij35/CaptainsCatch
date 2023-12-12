@@ -16,12 +16,11 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.util.Arrays;
 
 public class API {
 
-    public static void apiSendData(Context context, String bookingFilePath, String loginFilePath) throws IOException, JSONException {
+    public static void apiWriteData(Context context, String bookingFilePath, String loginFilePath) throws IOException, JSONException {
 
         //Reading the data in the json files and inputting them into a JSON object to be sent by the API
         JSONObject jsonBody = new JSONObject();
@@ -32,6 +31,11 @@ public class API {
         jsonBody.put("tableSize", readJson(bookingFilePath).get("tableSize").textValue());
         jsonBody.put("date", readJson(bookingFilePath).get("date").textValue());
         final String requestBody = jsonBody.toString();
+
+        SendToApi(context, requestBody);
+    }
+
+    public static void SendToApi(Context context, String body) {
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         String URL = "https://web.socem.plymouth.ac.uk/COMP2000/ReservationApi/api/Reservations/";
@@ -46,32 +50,44 @@ public class API {
 
             @Override
             public byte[] getBody() {
-                return requestBody.getBytes(StandardCharsets.UTF_8);
+                return body.getBytes(StandardCharsets.UTF_8);
             }
         };
         requestQueue.add(stringRequest);
     }
 
-    public static void apiGetData(Context context, String filename) throws IOException, JSONException {
+    public static void apiGetData(Context context, String key, String value, String fileName) throws IOException, JSONException {
+
+        JSONObject reset = new JSONObject();
+        reset.put("key", 0);
+        final String resetBody = reset.toString();
+        Storage.writeJson(context, fileName, resetBody);
+
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         String site = "https://web.socem.plymouth.ac.uk/COMP2000/ReservationApi/api/Reservations/";
-
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, site, null, response -> {
-            JSONObject jsonBody = new JSONObject();
+            try {
+                int j = 1;
+                for (int i = 0; i < response.length(); i++) {
+                    JSONObject reservationJSON;
+                    reservationJSON = response.getJSONObject(i);
+                    String[] date = new String[0];
+                    date = new String[]{reservationJSON.getString(key)};
 
-            try {
-                jsonBody.put("Data", response);
-            } catch (JSONException e) {
+                    if (date[0].equalsIgnoreCase(value)) {
+                        Log.i("number: " + j + " id: " + i, Arrays.toString(date));
+                        JSONObject jsonBody = new JSONObject();
+                        jsonBody.put("key", JSONObject.numberToString(j));
+                        final String requestBody = jsonBody.toString();
+                        Storage.writeJson(context, fileName, requestBody);
+                        j++;
+                    }
+                }
+            } catch (JSONException | IOException e) {
                 throw new RuntimeException(e);
             }
-            final String bookingBody = jsonBody.toString();
-            try {
-                Storage.writeJson(context, filename, bookingBody);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+
         }, null);
-
         requestQueue.add(jsonArrayRequest);
     }
 }
