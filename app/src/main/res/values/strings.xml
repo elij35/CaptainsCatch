@@ -19,7 +19,9 @@
     <string name="amend_booking_btn">Amend booking</string>
     <string name="manage_booking_btn">Manage bookings</string>
     <string name="back_manage_bookings_btn">Back to manage bookings</string>
+    <string name="check_available_btn">Check Table Availability</string>
     <string name="cancel_booking_btn">Cancel booking</string>
+    <string name="view_available_btn">Click to see if the table is available!</string>
     <string name="edit_booking_btn">Edit booking</string>
     <string name="login_btn">Login</string>
     <string name="available_tables_btn">Available tables</string>
