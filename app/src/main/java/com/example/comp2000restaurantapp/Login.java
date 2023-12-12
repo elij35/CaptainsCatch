@@ -69,17 +69,21 @@ public class Login extends AppCompatActivity {
         String fileBookings = "booking.json";
         String fileReviews = "reviews.json";
         String notifications = "notifications.json";
+        String date = "date.json";
 
         JSONObject jsonBody = new JSONObject();
 
         final String bookingBody = jsonBody.toString();
         final String reviewsBody = jsonBody.toString();
+        final String dateBody = jsonBody.toString();
 
         jsonBody.put("notificationsOn", "On");
         final String notificationBody = jsonBody.toString();
 
-        Storage.writeJson(getApplicationContext(), fileBookings, bookingBody);
-        Storage.writeJson(getApplicationContext(), fileReviews, reviewsBody);
-        Storage.writeJson(getApplicationContext(), notifications, notificationBody);
+        //Storage.writeJson(getApplicationContext(), fileBookings, bookingBody);
+        //Storage.writeJson(getApplicationContext(), fileReviews, reviewsBody);
+        //Storage.writeJson(getApplicationContext(), notifications, notificationBody);
+        //Storage.writeJson(getApplicationContext(), date, dateBody);
+
     }
 }
