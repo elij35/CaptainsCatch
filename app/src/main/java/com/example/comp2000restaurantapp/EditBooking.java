@@ -181,7 +181,7 @@ public class EditBooking extends AppCompatActivity {
     private void sendAPI() throws JSONException, IOException {
         String booking = getFilesDir() + "/" + "booking.json";
         String login = getFilesDir() + "/" + "login.json";
-        API.apiSendData(getApplicationContext(), booking, login);
+        API.apiWriteData(getApplicationContext(), booking, login);
     }
 
     private void sendNotification() throws IOException {

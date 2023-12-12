@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -182,7 +183,7 @@ public class NewBooking extends AppCompatActivity {
     private void sendAPI() throws JSONException, IOException {
         String booking = getFilesDir() + "/" + "booking.json";
         String login = getFilesDir() + "/" + "login.json";
-        API.apiSendData(getApplicationContext(), booking, login);
+        API.apiWriteData(getApplicationContext(), booking, login);
     }
 
     private void sendNotification() throws IOException {
