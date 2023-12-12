@@ -11,5 +11,5 @@ Logo:
 For the bottom navigation bar:
 - [Home icon](https://assets.cdn.filesafe.space/IGfmsDudO6X2bOxvbkQg/media/6369b660e4334a9c872d0ede.png)
 - [Calendar icon](https://www.pinterest.co.uk/pin/650277633690517131)
-- [Star icon](https://www.pngkey.com/detail/u2y3a9i1r5u2u2w7_clean-floors-remove-cobwebs-black-star-clip-art)
+- [Star icon](https://www.dreamstime.com/blue-star-basic-simple-shapes-geometric-icon-d-shape-symbol-isolated-white-background-clip-art-kids-learning-image190501253)
 - [Account icon](https://workflo-solutions.co.uk/our-approach-2)
