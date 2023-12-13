@@ -68,7 +68,7 @@ public class AvailableTables extends AppCompatActivity {
 
             String dateFile = "date.json";
 
-            if (!mealtimeSelected.equals("Select table size") & dateSelected != null) {
+            if (!mealtimeSelected.equals("Select mealtime") & dateSelected != null) {
                 try {
                     if (DateNow.dateDifference(dateSelected) < 7) {
                         showDateAlert();
@@ -100,7 +100,8 @@ public class AvailableTables extends AppCompatActivity {
             try {
                 if (Storage.readJson(availableFile).get("key").asInt() < 15) {
                     Log.i("Yes string output: ", String.valueOf(Storage.readJson(availableFile).get("key")));
-                    AvailableTrueAlert();
+                    Intent intent = new Intent(this, AvailableTablesView.class);
+                    startActivity(intent);
                 } else {
                     Log.i("No string output: ", String.valueOf(Storage.readJson(availableFile).get("key")));
                     AvailableFalseAlert();
@@ -109,17 +110,6 @@ public class AvailableTables extends AppCompatActivity {
                 throw new RuntimeException(e);
             }
         });
-    }
-
-    private void AvailableTrueAlert() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(true);
-        builder.setTitle("Tables are available!");
-        builder.setMessage("Book your table now on the bookings page!");
-        builder.setNegativeButton(android.R.string.ok, (dialog, which) -> {
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();
     }
 
     private void AvailableFalseAlert() {
@@ -227,7 +217,7 @@ public class AvailableTables extends AppCompatActivity {
     private void loadBackToBookings() {
         Button bookings = findViewById(R.id.back_to_bookings);
         bookings.setOnClickListener(view -> {
-            Intent intent = new Intent(AvailableTables.this, NewBooking.class);
+            Intent intent = new Intent(this, NewBooking.class);
             startActivity(intent);
         });
     }
