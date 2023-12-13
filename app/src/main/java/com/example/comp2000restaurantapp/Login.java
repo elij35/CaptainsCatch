@@ -46,7 +46,7 @@ public class Login extends AppCompatActivity {
         String FILE_NAME = "login.json";
 
         if (username.getText().toString().length() != 0) {
-            if (phoneNumber.getText().toString().length() != 0) {
+            if (phoneNumber.getText().toString().length() != 0 & phoneNumber.getText().toString().matches("\\d+")) {
                 JSONObject jsonBody = new JSONObject();
                 jsonBody.put("customerName", username.getText());
                 jsonBody.put("customerPhoneNumber", phoneNumber.getText());
