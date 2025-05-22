@@ -1,15 +1,32 @@
-# Comp2000 The Captain's Catch
+# The Captain's Catch
 
-Welcome to my online table bookings app
+Welcome to the Captain's Catch, an Android app developed as part of the software engineering coursework.
 
-This is an app that allows customers that go to the Captain's Catch to reserve a table and check if there is any availability
+## Features
 
-## Resources used
-Logo:
-- [Ankor icon](https://www.pngegg.com/en/png-prxvz)
+- Reserve tables through the app
+- Check table availability in real time
+- Simple, user-friendly navigation
 
-For the bottom navigation bar:
-- [Home icon](https://assets.cdn.filesafe.space/IGfmsDudO6X2bOxvbkQg/media/6369b660e4334a9c872d0ede.png)
-- [Calendar icon](https://www.pinterest.co.uk/pin/650277633690517131)
-- [Star icon](https://www.dreamstime.com/blue-star-basic-simple-shapes-geometric-icon-d-shape-symbol-isolated-white-background-clip-art-kids-learning-image190501253)
-- [Account icon](https://workflo-solutions.co.uk/our-approach-2)
+## Coded in
+
+- Java
+- Kotlin
+- Android Studio
+
+## Getting Started
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/elij35/CaptainsCatch.git
+
+2. Open the project in Android Studio.
+
+3. Let Gradle finish building the project.
+
+4. Connect a device or start an emulator, then run the app.
+
+## Demo
+
+[![Demo](https://img.youtube.com/vi/Ir6L85ZwWdM/0.jpg)](https://www.youtube.com/watch?v=Ir6L85ZwWdM)
