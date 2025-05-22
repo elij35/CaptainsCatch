@@ -23,10 +23,10 @@ import java.util.Calendar;
 
 public class AvailableTables extends AppCompatActivity {
 
-    private DatePickerDialog datePickerDialog;
-    private Button dateButton;
     String dateSelected;
     String mealtimeSelected;
+    private DatePickerDialog datePickerDialog;
+    private Button dateButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -35,9 +35,6 @@
             android:name=".EditBooking"
             android:exported="false" />
         <activity
-            android:name=".Error"
-            android:exported="false" />
-        <activity
             android:name=".BookingSuccess"
             android:exported="false" />
         <activity
